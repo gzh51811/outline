@@ -10,6 +10,8 @@
  *   4. ECMAScript Module
  */
 // 引入js/common模块
-let {username,age,gender} = require('./js/common');//解构
+// let {username,age,gender} = require('./js/common');//解构
+let com  = require('./js/common');
 
-console.log('index 入口文件',username,age,gender)
+console.log('index 入口文件',com);
+console.log('get()',com.get());
