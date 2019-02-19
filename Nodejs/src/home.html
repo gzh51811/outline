@@ -9,6 +9,36 @@
 </head>
 <body>
     <h1>Home page</h1>
+    <button id="btn">点我有惊喜</button>
     <img src="img/g1.jpg"/>
+    <script>
+        (()=>{
+            /**
+             * 自定义事件
+             * 创建：document.createEvent()
+             * 初始化：event.initEvent()
+             * 监听：addEventListner()
+             * 触发：element.dispatchEvent()
+            */
+            let btn = document.querySelector('#btn');
+            btn.onclick = (e)=>{
+                console.log('click',e);
+
+                btn.dispatchEvent(event);
+            }
+
+
+            // 
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('laoxie',true,true);
+
+            // 给元素监听自定义事件
+            btn.addEventListener('laoxie', function (e) {
+                console.log('自定义事件：',e);
+            }, false);
+
+            
+        })();
+    </script>
 </body>
 </html>

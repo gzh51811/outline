@@ -127,3 +127,11 @@ hash: 锚点部分（即：“#”及其后的部分）
                 * stringify()
 
 逻辑思维移植（学习能力）
+
+事件
+    * 绑定
+        * click,mousedown
+        * scroll
+    * 触发
+    * 自定义事件
+        * laoxie
