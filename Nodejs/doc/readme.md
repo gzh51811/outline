@@ -90,3 +90,39 @@ hash: 锚点部分（即：“#”及其后的部分）
 
 
 利用内置模块实现http静态服务器
+
+
+## day1-2
+* 查看文档能力
+    * 技术文档
+    * 需求文档
+
+* 复习nodejs
+    * REPL
+    * 如何执行js文件： node <文件名>
+    * 模块化开发
+        * 规范
+            * AMD
+            * CMD
+            * commonJS
+            * ES Module
+        * 分类
+            * 原生
+            * 自定义
+            * 第三方 npm
+            * 文件模块
+                * json
+
+        * 使用
+            * 引入 require()
+            * 导出
+                * exports
+                * module.exports
+        * 原生模块
+            * http
+            * url   :  解析请求的url地址
+            * path  :  解析本地文件地址
+            * querystring ： 解析请求参数
+                * parse()
+                * stringify()
+

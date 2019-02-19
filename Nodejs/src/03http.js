@@ -13,7 +13,7 @@ http.createServer((request, response)=>{
     // response:相应相关的信息（后端给前端的东西）
     console.log(request.url);
     let type = request.method.toLowerCase();
-    let {pathname} = url.parse(request.url,true);
+    let {pathname,query} = url.parse(request.url,true);
     // if(type === 'post'){
     //     response.end('post data')
     // }else if(type === 'get'){
