@@ -12,6 +12,12 @@ let eventEmitter = new events.EventEmitter();
 // 绑定事件及事件的处理程序
 eventEmitter.on('laoxie',()=>{
     console.log('hello laoxie');
+
+    eventEmitter.emit('jingjing');
+});
+
+eventEmitter.on('jingjing',()=>{
+    console.log('hello laoxie');
 });
 
 setTimeout(()=>{

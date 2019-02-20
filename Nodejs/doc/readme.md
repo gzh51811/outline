@@ -135,3 +135,34 @@ hash: 锚点部分（即：“#”及其后的部分）
     * 触发
     * 自定义事件
         * laoxie
+
+## day1-3
+* 复习
+    * 内置模块
+        * http
+        * url
+        * path
+        * querystring
+        * fs
+            fs.readFile()
+        * events
+    * 前后端的知识
+        * 请求request
+        * 响应response
+            * content-type
+            * statuscode
+                * 2xx
+                    * 200
+                * 3xx
+                    * 304
+                    * 301
+                * 4xx
+                    * 404
+                    * 401
+                * 5xx
+                    * 500
+
+    * 输入url地址->展示
+        * 域名解析阶段
+        * 服务器响应阶段
+        * 浏览器渲染阶段
