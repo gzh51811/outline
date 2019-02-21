@@ -166,3 +166,59 @@ hash: 锚点部分（即：“#”及其后的部分）
         * 域名解析阶段
         * 服务器响应阶段
         * 浏览器渲染阶段
+
+
+    gulp.src('./src/js/*.js') //返回一个数据流
+
+    .pipe()
+
+
+    gulpfile.js
+
+    gulp xxx
+
+## day1-4
+* 跨域解决方案
+    * jsonp
+        * script 
+            * src="xxx.php"
+            * 返回一段函数执行的代码 getData({})
+            * getData必须为全局函数
+        * CORS (W3C,ajax)
+            * 响应头
+        * 服务器代理
+        * iframe
+        * window.name
+        ....
+
+* 复习
+    * 数据流Stream
+        * 是一个eventEmitter实例
+        * Buffer
+        * 读取据流：
+            * readFile(path,callbak)
+            * let stream = fs.createReadStream(path)
+                stream.on('data',(chunk)=>{
+
+                })
+                stream.on('end',()=>{
+
+                })
+        * 写入流
+            * fs.createWriteStream(path,opt)
+
+            *  writerStream.write(data,'UTF8');
+
+                // 标记文件末尾
+            * writerStream.end();
+        http
+            * request
+
+        * 应用
+            * 复制文件
+            * 压缩/解压
+            * 爬虫
+            ...
+
+开发环境: development
+生产环境：production
