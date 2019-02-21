@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h1>跨域请求数据</h1>
+    <script>
+        (()=>{
+            // FormData
+            let data = new FormData();
+            data.set('username','jingjing');
+            data.set('password','1234');
+
+            let xhr = new XMLHttpRequest();
+            xhr.onload = ()=>{
+                console.log(xhr.responseText);
+            }
+            xhr.open('post','/login',true);
+            xhr.setRequestHeader('Content-Type','application/json');
+            xhr.send(JSON.stringify({username:'jingjing',password:123}));
+        })();
+    </script>
+</body>
+</html>
