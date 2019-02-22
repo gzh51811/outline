@@ -224,3 +224,82 @@ hash: 锚点部分（即：“#”及其后的部分）
 生产环境：production
 
 语义化
+
+第三方模块
+    * request     分析html结构
+    * cheerio      封装了jquery核心的模块
+        * cheerio.load(html)
+    * express
+        * 静态资源服务器
+            express.static()
+        * 路由
+            * app.get()
+            * app.post()
+            * app.put()
+            * app.delete()
+        * 中间件
+            app.use(path,...middleware)
+
+    * 工具
+        * supervisor
+
+async/await
+
+
+## day1-5
+* 语义化标签
+    * table布局
+        * <font color="">
+    * DIV+CSS
+        * float
+        * position
+    * 语义化：在合适的位置使用合适的标签
+        * SEO： 搜索引擎优化
+            * 标签
+            * 友情链接
+            * 热搜
+            ....
+    * html5新标签
+
+
+* express
+    * 中间件
+    let express = require('express')
+    let app = express();
+
+    app.use(express.static('./'))
+
+    app.listen(1811)
+
+    let http = require('http')
+    http.createServer((req,res)=>{
+        req.url
+    })
+    http.listen(1811)
+
+    * 路由
+        app.use('/goods/:',(req,res,next)=>{
+            // 对req.url,req参数进行格式化，并写入req对象
+
+            next()
+        },(req,res,next)=>{
+            req
+        })
+
+        app.use((req,res)=>{
+
+        })
+
+        app.get()
+        app.post()
+        app.put()
+        app.delete()
+
+        * 模块化开发    
+
+            * 
+            const goodsRouter = express.Router()
+            goodsRouter.get('/)
+            goodsRouter.post('/')
+            module.exports = goodsRouter
+            app.use('/goods',goodsRouter)

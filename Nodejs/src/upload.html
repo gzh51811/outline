@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>文件上传</h1>
+        <div class="form-group">
+            <label for="username">用户名：</label>
+            <input type="text" class="form-control" id="username" />
+        </div>
+        <div class="input-group">
+            <input type="file" class="form-control-file form-control" multiple id="goods">
+            <div class="input-group-append">
+                <button class="btn btn-success btnSend">上传</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /**
+         *  FormData
+         *  方法
+         *      * set()
+         *      * get()
+         *      * append()
+         * 
+        */
+        (()=>{
+            let goods = document.querySelector('#goods');
+            let btn = document.querySelector('.btnSend');
+            let username = document.querySelector('#username');
+
+            
+
+            btn.onclick = ()=>{
+                let _username = username.value;
+                let _goods = goods.value;
+
+                // FormData
+
+                let data = new FormData();
+                // 普通文本
+                data.set('username',_username);
+
+                for(let i=0;i<goods.files.length;i++){
+                    data.append('goods',goods.files[i]);
+                }
+
+                console.log('username',data.get('username'))
+                console.log('goods',data.get('goods'))
+
+                // 文件
+                // data.set('goods',goods)
+
+                let xhr = new XMLHttpRequest();
+                xhr.open('post','/upload',true);
+                xhr.send(data)
+            }
+        })()
+    </script>
+</body>
+
+</html>
