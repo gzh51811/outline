@@ -303,3 +303,26 @@ async/await
             goodsRouter.post('/')
             module.exports = goodsRouter
             app.use('/goods',goodsRouter)
+
+    * 对象属性的访问规则
+        let obj = {name:'jingjing',say(){return 'hello'}}
+        obj.name;// 'jingjing'
+        obj.gender;// undefined
+        obj.say();// 'hello'
+        obj.getData();// getData is not a function
+        obj.toString();//
+
+        1.先从当前对象查找，找到则返回
+        2.继续往原型对象上查找，找到则返回
+        3.继续往原型对象的原型对象查找，找到则返回
+        n. ......
+        终点：Object的原型对象，找到则返回，否则得到undefined或报错
+
+        属性访问规则：在原型链中查找
+
+        一切皆对象
+
+    * 变量访问规则
+
+    * jsonp
+    * CORS
