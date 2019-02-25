@@ -326,3 +326,35 @@ async/await
 
     * jsonp
     * CORS
+
+
+## day2-1
+* 字符串的比较
+    'a' > 'A'  //=>
+
+
+    require('home')
+
+### Socket
+* http/https
+
+* 客户端
+    * 实例化WebSocket
+    * 事件
+        * onopen：当网络连接建立时触发该事件
+        * onclose：当服务端关闭时触发该事件
+        * onerror：当网络发生错误时触发该事件
+        * onmessage：当接收到服务器发来的消息的时触发的事件，也是通信中最重要的一个监听事件
+    * 方法
+        * close(): 在客户端断开与服务端的连接 socket.close();
+        * send()：向服务端推送消息
+* 服务端
+    * ws
+    * 事件
+        connection
+    * 客户端对象client
+        * 方法
+            send()
+        * 事件
+            * message
+            * close

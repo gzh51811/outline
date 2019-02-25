@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Socket</title>
+</head>
+<body>
+    <h1>Web Socket</h1>
+    <script>
+        (()=>{
+             //连接 socket 服务器
+            var socket = new WebSocket('ws://localhost:1001');
+
+            //监听 socket 的连接
+            socket.onopen = function(){
+                console.log("服务已连接 ws://localhost:1001");
+            }
+
+             //监听服务端断开
+            socket.onclose = function(){
+                console.log("服务已断开");
+                socket = null;
+            }
+
+
+            //监听服务端广播过来的消息
+            socket.onmessage = function(msg){
+                console.log('来自服务端：',msg.data)
+            }
+        })();
+    </script>
+</body>
+</html>

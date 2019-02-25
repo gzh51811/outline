@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>多人聊天室</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
+    <style>
+        /* position: absolute;left:50px;bottom:0;right:0; */
+        .statusBar{display:none;padding:5px 10px;text-align:center;color:#999;}
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid" id="myChat">
+        <h1>多人聊天室</h1>
+        <div class="form">
+            <div class="input-group">
+                <input type="text" class="form-control username" placeholder="请输入用户名">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success login" type="button">连接</button>
+                    <button class="btn btn-outline-danger logout" type="button">退出</button>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group msglist">
+            <!-- <li class="list-group-item">Cras justo odio</li> -->
+        </ul>
+        <div class="form-group">
+            <textarea class="form-control msg" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success btnSend">发送</button>
+        </div>
+        <div class="statusBar"></div>
+    </div>
+    <script>
+        (() => {
+            /*
+				websocke状态定义（status）:
+					0:退出登录
+					1:登录成功
+					2:发送消息
+			 */
+            let myChat = document.querySelector('#myChat');
+			let username = myChat.querySelector('.username');
+			let btnLogin = myChat.querySelector('.login');
+			let btnLogout = myChat.querySelector('.logout');
+
+			let msglist = myChat.querySelector('.msglist');
+			let msg = myChat.querySelector('.msg');
+			let btnSend = myChat.querySelector('.btnSend');
+            let statusBar = myChat.querySelector('.statusBar');
+            
+
+            let socket,datalist=[];
+
+            btnLogin.onclick = e=>{
+                socket = new WebSocket('ws://10.3.137.11:1811');
+
+                socket.onopen = (e)=>{console.log('e:',e)
+                    statusBar.style.display = 'block';
+                    statusBar.innerText = '服务已连接 ' + e.target.url;
+                    username.disabled = true;
+                    socket.send(JSON.stringify({status:1,data:{username:username.value,msg:'登录成功'}}));
+                }
+
+
+                socket.onclose = (e)=>{
+                    statusBar.innerText = '已断开服务 ' + e.target.url;
+                    username.disabled = false;
+                }
+                
+
+                // 接收到消息的操作
+                socket.onmessage = (e)=>{console.log(e)
+                    // 服务器发送的消息存放在e.data
+                    let {status,data} = JSON.parse(e.data);
+                    switch(status){
+                        case 0: 
+                            statusBar.innerText = `${data.username} 退出群聊`;
+                            break;
+                        case 1: 
+                            statusBar.innerText = `${data.username} 进入聊天室`;
+                            break;
+                        case 2: 
+                            datalist.push(data);
+                            render();
+                            break;	
+                    }
+                }
+            }
+
+
+            // 退出
+            btnLogout.onclick = e=>{
+                socket.send(JSON.stringify({status:0,data:{username:username.value,msg:'退出成功'}}));
+                socket.close();
+            }
+
+            // 发送消息
+            btnSend.onclick = e=>{
+                socket.send(JSON.stringify({status:2,data:{username:username.value,msg:msg.value}}));
+
+                msg.value = '';
+				msg.focus();
+            }
+
+
+            function render(){
+                msglist.innerHTML = datalist.map(item=>{
+                    return `<li class="list-group-item"><strong>${item.username}：</strong>${item.msg}</li>`
+                }).join('\n');
+            }
+        })();
+    </script>
+</body>
+
+</html>

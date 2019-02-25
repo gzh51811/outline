@@ -43,8 +43,14 @@ var exampleProxy = proxy(options);
  
 // mount `exampleProxy` in web server 
 app.use('/proxy', exampleProxy);
+
+
+// local:  http://localhost:1811/jxapi/m_v1/statics/getzx.htm
+    // -> https://m.jiuxian.com/jxapi/m_v1/statics/getzx.htm
+// target: https://m.jiuxian.com/m_v1/statics/getzx.htm
+
 app.use('/jxapi', proxy({
-    "target": "https://m.jiuxian.com",
+    "target": "https://m.jiuxian.com", //目标服务器
     "changeOrigin": true,
     "pathRewrite": {
         "^/jxapi" : "/"
