@@ -1,0 +1,25 @@
+{
+  "name": "Nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "http-proxy-middleware": "^0.19.1",
+    "multer": "^1.4.1",
+    "mysql": "^2.16.0",
+    "request": "^2.88.0",
+    "tar": "^4.4.8",
+    "ws": "^6.1.4"
+  }
+}

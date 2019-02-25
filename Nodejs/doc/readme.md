@@ -358,3 +358,18 @@ async/await
         * 事件
             * message
             * close
+
+* mySQL
+    * 数据接口
+        * 注册 /api/register
+        * 登录 /api/login
+        * 商品列表 /api/list/:cate
+        * 商品 /api/goods/:id
+
+    * 路由结构
+        * index  /api
+            * list  /api/list
+            * goods /api/goods/id
+            * login /api/login
+            * register /api/register
+    
