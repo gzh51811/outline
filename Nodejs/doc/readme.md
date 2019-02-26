@@ -372,4 +372,11 @@ async/await
             * goods /api/goods/id
             * login /api/login
             * register /api/register
-    
+    * 数据返回格式
+        {code,data:[],msg}
+
+* 类数组与数组
+    * 面向对象
+    * 属性访问规则
+
+    类数组.map()
