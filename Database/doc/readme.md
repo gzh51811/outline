@@ -108,3 +108,29 @@ test(a)
         * 如何兼容IE版本
     
                 
+* 注册登录
+    * 服务器
+        * 静态资源
+        * 数据接口
+
+* koa
+    * ctx
+        * req : nodejs request
+        * res : nodejs response
+        * requset : koa 的 request
+        * reponse : koa 的 response
+        ... ：ctx对象下会有很多属性来自于ctx.request和ctx.response
+
+
+        ctx.method = ctx.request.method
+        ctx.body = ctx.response.body
+
+
+* 用户权限管理
+* 如何保持用户登录状态
+    * token
+        * laoxie
+        * lx18
+        * 1000*60*60*2
+
+        => LSKDKLRQEWRQW345U9837WQLKSDFLASDQQ

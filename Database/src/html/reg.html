@@ -13,6 +13,7 @@
             <div class="form-group">
               <label for="username">用户名：</label>
               <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+              <div class="invalid-feedback">你输入的用户太受欢迎</div>
             </div>
             <div class="form-group">
               <label for="password">密码：</label>
@@ -50,13 +51,43 @@
                 let xhr = new XMLHttpRequest();
                 xhr.onload = ()=>{
                     if(xhr.status == 200){
-                        console.log(xhr.responseText)
+                        let res = JSON.parse(xhr.responseText);
+                        if(res.ok){
+                            location.href = 'login.html';
+                        }
                     }
                 }
                 xhr.open('post','/registry',true);
+                xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                
 
                 let data = `username=${_username}&password=${_password}&gender=${_gender}`
                 xhr.send(data)
+            }
+
+
+            // 判断用户名是否存在
+            username.onchange = ()=>{
+                let _username = username.value;
+
+                // 发起ajax请求
+                let xhr = new XMLHttpRequest();
+                xhr.onload = ()=>{
+                    if(xhr.status == 200){
+                        if(xhr.responseText == 'no'){
+                            username.classList.remove('is-valid')
+                            username.classList.add('is-invalid')
+                            username.nextElementSibling.innerText = '你输入的用户太受欢迎'
+                        }else{
+                            username.classList.remove('is-invalid')
+                            username.classList.add('is-valid')
+                            username.nextElementSibling.innerText = ''
+                        }
+                    }
+                }
+                xhr.open('get',`/registry?username=${_username}`,true);
+                
+                xhr.send()
             }
         })();
     </script>

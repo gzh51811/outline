@@ -9,14 +9,30 @@ var router = new Router();
 /**
  * ctx
  */
-router.post('/',(ctx,next)=>{
-    ctx.body = ctx.request.body
+router.post('/',async (ctx,next)=>{
+    // 解构
+    let {username,password,gender} = ctx.request.body;
+
+    let data = {username,password,gender,regtime:Date.now()}
+    let res = await db.insert('user',data);
+
+    ctx.body = res
 
     // 存入数据库
+
 })
 
-router.get('/',(ctx,next)=>{
-    ctx.body = '注册get';
+// 判断用户名是否存在
+router.get('/',async (ctx,next)=>{
+    let {username} = ctx.query;
+
+    let res = await db.find('user',{username});console.log(ctx.query,username,res)
+
+    if(res.length>0){
+        ctx.body = 'no'
+    }else{
+        ctx.body = 'yes'
+    }
 })
 
 module.exports = router;

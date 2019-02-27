@@ -7,6 +7,7 @@ var router = new Router();
 
 // 引入页面路由
 const registryRouter = require('./registry');
+const loginRouter = require('./login');
 
 router.use(koaBody({
     // 支持formdata
@@ -27,6 +28,8 @@ router.use(koaBody({
         }
     }
 }));
+
 router.use('/registry',registryRouter.routes())
+router.use('/login',loginRouter.routes())
 
 module.exports = router;

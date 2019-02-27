@@ -4,9 +4,6 @@
  * 2. 删
  * 3. 改
  * 4. 查
- * 
- * 5. 连接
- * 6. 关闭
  */
 const mongodb = require('mongodb');
 
@@ -16,7 +13,7 @@ const database_url = 'mongodb://localhost:27017';
 const database_name = 'laoxie';
 
 async function connect(){
-    let client = await MongoClient.connect(database_url);
+    let client = await MongoClient.connect(database_url,{ useNewUrlParser: true });
     let db = client.db(database_name);
     return {db,client}
 }
