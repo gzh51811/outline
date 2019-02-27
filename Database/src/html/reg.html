@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>用户注册</h1>
+            <div class="form-group">
+              <label for="username">用户名：</label>
+              <input type="text" class="form-control" id="username" placeholder="请输入用户名">
+            </div>
+            <div class="form-group">
+              <label for="password">密码：</label>
+              <input type="password" class="form-control" id="password" placeholder="请输入密码">
+            </div>
+            <div class="form-group">
+                <label for="confirmpassword">确认密码：</label>
+                <input type="password" class="form-control" id="confirmpassword" placeholder="请输入密码">
+            </div>
+            <div class="form-group">
+                <label for="gender">性别：</label>
+                <select class="form-control" id="gender">
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                    <option value="泰国">不详</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success btnReg">注册</button>
+    </div>
+    <script>
+        (()=>{
+            let username = document.querySelector('#username');
+            let password = document.querySelector('#password');
+            let confirmpassword = document.querySelector('#confirmpassword');
+            let gender = document.querySelector('#gender');
+            let btnReg = document.querySelector('.btnReg');
+
+            btnReg.onclick = ()=>{
+                let _username = username.value;
+                let _password = password.value;
+                let _confirmpassword = confirmpassword.value;
+                let _gender = gender.value;
+
+                // 发起ajax请求
+                let xhr = new XMLHttpRequest();
+                xhr.onload = ()=>{
+                    if(xhr.status == 200){
+                        console.log(xhr.responseText)
+                    }
+                }
+                xhr.open('post','/registry',true);
+
+                let data = `username=${_username}&password=${_password}&gender=${_gender}`
+                xhr.send(data)
+            }
+        })();
+    </script>
+</body>
+</html>

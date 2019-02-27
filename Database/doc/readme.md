@@ -66,3 +66,45 @@ function test(b){
 }
 
 test(a)
+
+* 如何在nodejs中操作mongodb
+    * 安装第三方模块
+        * mongodb（推荐）
+        * mongoose
+
+## day2-3
+* 复习
+    * Mongodb
+        * mongodb与mySQL : 
+            * 非关系型数据库与关系型数据库
+            * 对比
+                * 关系型        非关系型
+                * database      database
+                * table         collection
+                * row           document
+
+
+
+        * 操作
+            * 数据库操作
+            * 集合操作
+                * 
+            * 文档操作CRUD
+                * 增
+                    db.col.insertOne(doc)
+                    db.col.insertMany([...doc])
+                * 删
+                    db.col.deleteOne(query)
+                    db.col.deleteMany(query)
+                * 改
+                    db.col.updateOne(query,{$set:newData})
+                    db.col.updateMany(query,{$set:newData})
+                * 查
+                    * db.col.find(query).toArray((err,docs)=>{})
+                    * 推荐：let docs = await db.col.find(query).toArray()  
+
+    * 补充：
+        * node版本管理工具nvm
+        * 如何兼容IE版本
+    
+                
