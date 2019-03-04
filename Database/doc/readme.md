@@ -157,3 +157,14 @@ token：令牌
 http请求是无状态：
 * 登录 -> 加密->保存状态到本地
 * 浏览首页 -> 解密->获取保存状态信息
+
+
+appendChild()/insertBefore()
+
+* localStorage如何实现类似于cookie的效果
+    * localstorage.setItem('user',JSON.stringify({value:'laoxie',expires:})
+    * 获取
+        * 先判断是否超过有效期，超过：直接删除
+* express与koa有哪些不同
+    * 模块化开发
+    * 最终项目大小
