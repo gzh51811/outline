@@ -5,9 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>首页</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.css">
 </head>
 <body>
     <h1>首页</h1>
-    xxx，欢迎你，请<a href="html/login.html">登录</a> or <a href="html/reg.html">注册</a>
+    <div class="welcome">
+        guest，欢迎你，请<a href="html/login.html">登录</a> or <a href="html/reg.html">注册</a>
+    </div>
+
+    <script>
+    (()=>{
+        /**
+         * 细节：当localStore中无user时
+        */
+        let welcome = document.querySelector('.welcome');
+        let user = localStorage.getItem('user');
+
+        if(!user){
+            user = {}
+        }else{
+            user = JSON.parse(user);
+        }
+
+    // 不靠谱验证方式
+    //    if(user._id){
+    //         welcome.innerHTML = `
+    //         ${user.username}，欢迎你，<button class="btn btn-outline-danger btn-sm btnLogout">退出</button>
+
+    //        `
+    //    }
+
+    // token验证方式
+    if(user.token){
+        // 判断本地是否有token
+        let xhr = new XMLHttpRequest();
+        xhr.onload = ()=>{
+            let res = JSON.parse(xhr.responseText);
+           if(res.status == 200){
+                welcome.innerHTML = `${user.username}，欢迎你，<button class="btn btn-outline-danger btn-sm btnLogout">退出</button>`
+           }
+        }
+        xhr.open('post','/tokenverify',true);
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        xhr.send('token='+user.token)
+    }
+
+        //    退出
+        welcome.onclick = (e)=>{
+            if(e.target.classList.contains('btnLogout')){
+                localStorage.removeItem('user');
+                location.reload();
+            }
+        }
+    })()
+    </script>
 </body>
 </html>

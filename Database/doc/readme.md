@@ -134,3 +134,26 @@ test(a)
         * 1000*60*60*2
 
         => LSKDKLRQEWRQW345U9837WQLKSDFLASDQQ
+
+
+## localStorage/sessionStorage
+// Storage：sessionStorage和localStorage
+// 写入：setItem(name,value) 只能写入字符串
+// 读取：getItem(name)
+// 删除：remoteItem(name)
+// 清除：clear()
+
+循环：
+```js
+for(let i=0;i<localStorage.length;i++){
+    let key = localStorage.key(i);
+    localStorage.getItem(key)
+}
+```
+
+token：令牌
+
+
+http请求是无状态：
+* 登录 -> 加密->保存状态到本地
+* 浏览首页 -> 解密->获取保存状态信息

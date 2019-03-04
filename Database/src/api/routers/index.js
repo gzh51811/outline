@@ -8,6 +8,7 @@ var router = new Router();
 // 引入页面路由
 const registryRouter = require('./registry');
 const loginRouter = require('./login');
+const tokenverifyRouter = require('./tokenverify');
 
 router.use(koaBody({
     // 支持formdata
@@ -31,5 +32,6 @@ router.use(koaBody({
 
 router.use('/registry',registryRouter.routes())
 router.use('/login',loginRouter.routes())
+router.use('/tokenverify',tokenverifyRouter.routes())
 
 module.exports = router;

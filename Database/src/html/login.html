@@ -48,6 +48,17 @@
                     if(res._id){
                         location.href = '../index.html';
                     }
+
+                    // Cookie
+                    // 读取：document.cookie
+                    // Storage：sessionStorage和localStorage
+                    // 写入：setItem(name,value) 只能写入字符串
+                    // 读取：getItem(name)
+                    // 删除：remoteItem(name)
+                    // 清除：clear()
+
+                    // sessionStorage.setItem('user',xhr.responseText);
+                    localStorage.setItem('user',xhr.responseText);
                 }
             }
             xhr.open('post','/login',true);
