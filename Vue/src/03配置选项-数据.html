@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>03配置选项-数据</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <h1>03配置选项-数据</h1>
+    <div id="app"></div>
+
+    <template id="userInfo">
+        <div class="user-info">
+            <img :src="touxiang"/>
+            <h4>{{username}}</h4>
+            <input type="text" v-model="username">
+            <p>reverseUsername：{{reverseUsername}}</p>
+            <p>numbers:{{numbers}}</p>
+            <p>&lt;10:{{ltnumber}}</p>
+        </div>
+    </template>
+    <script>
+        /**
+            * 配置选项：实例化Vue时传入的参数
+                * el
+                * template
+                * render()
+
+                * data
+                * computed
+            * 指令
+                * v-bind:attr
+        */
+
+        // 关于数据的配置选项
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                username:'jingjing',
+                nickname:'我想静静',
+                password:123456,
+                touxiang:'./img/mv3.jpg',
+                regtime:Date.now(),
+                numbers:[10,2,6,12,20,3]
+            },
+            computed:{
+                // 这里的属性必须为函数
+                reverseUsername(){
+                    return this.username.split('').reverse().join('');
+                },
+                ltnumber(){
+                    return this.numbers.filter(num=>num<10)
+                }
+            },
+            template:'#userInfo'
+        })
+       
+
+
+        console.log('vm：',vm)
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>04双向数据绑定的原理</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <h1>04双向数据绑定的原理</h1>
+    <div id="app">
+        <h1>{{movieName}}</h1>
+        <div>导演：{{daoyan}}</div>
+        <input type="text" v-model="piaofang" id="pf">
+    </div>
+    <script>
+        /**
+            * 指令
+                * v-bind:attr
+                    * 简写：:attr
+                * v-text
+                * v-html
+                * v-model
+        */
+
+        // 双向数据绑定的原理
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                movieName:'流浪千锋',
+                daoyan:'郭帆',
+                zhuyan:['吴京','静静','laoxie'],
+                piaofang:1000.0
+            }
+        })
+
+        // 在实例化Vue时，会遍历data/computed/methods中所有属性/方法，
+        // 并把他们添加到响应式系统（双向数据绑定的原理）
+        console.log('vm：',vm)
+
+        // 双向数据绑定的原理
+        // View -> Model ： 事件
+        // piaofang.oninput = function(){ vm.piaofang = this.value}
+
+        // Model -> View
+        // vm.piaofang = 100.0
+        // 如果能监听piaofang属性有修改，执行piaofang.value = 100.0
+        // **存储器属性**
+        
+
+        var myscore = {
+            math:150,
+            english:59,
+            chinese:140
+        }
+       
+        var obj = {
+            name:'laoxie',//值属性（数据属性）
+
+            // 存储器属性：
+            // getter： 读取属性时得到什么
+            // setter：设置属性时得到什么
+            get age(){
+                // 读取age属性时，执行这里的代码
+                return 18
+            },
+            set age(val){
+                // 当修改age属性时，执行这里的代码
+                console.log(666,val)
+            },
+
+            get piaofang(){
+                return 10000;
+            },
+            set piaofang(val){
+                document.querySelector('#pf').value = val;
+            }
+        }
+
+        // 遍历myscore对象下的所有属性，并把他们设置成存储器属性
+        // Object.defineProperty(obj,key,desc)
+        for(let key in myscore){
+            Object.defineProperty(obj,key,{
+                get(){
+                    return myscore[key];
+                },
+                set(val){
+                    myscore[key] = val;
+                }
+            })
+        }
+    </script>
+</body>
+</html>

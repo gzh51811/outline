@@ -19,35 +19,43 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
     - 特点：综合angular与react的优点，MVVM模式，是一款高性能高效率的框架
 
 ### 架构模式
-复杂的软件必须有清晰合理的架构，否则无法开发和维护
+复杂的软件必须有清晰合理的架构，更容易开发、维护和测试
 
 * MVC
->MVC模式的意思是，软件可以分成三个部分。
-    * 视图（View）：用户界面
-    * 控制器（Controller）：业务逻辑
-    * 模型（Model）：数据保存
+    > MVC模式的意思是，软件可以分成三个部分。
 
-    ![MVC](./img/mvc.png "Optional title")
+    * 模型（Model）：数据处理
+    * 视图（View）：数据展示
+    * 控制器（Controller）：业务逻辑处理（M和V之间的连接器）
 
-    * View 传送指令到 Controller
-    * Controller 完成业务逻辑后，要求 Model 改变状态
-    * Model 将新的数据发送到 View，用户得到反馈
+    ![MVC](./img/mvc.png "MVC")
+
+    1. View 传送指令到 Controller（用户发送指令）
+    3. Controller 完成业务逻辑后，要求 Model 改变状态
+    2. Model 将新的数据发送到 View，用户得到反馈
+
+
+    * 缺点：依赖复杂
+        * View 依赖Controller和Model
+        * Controller依赖View和Model
 
 * MVP
-> MVP 架构模式是 MVC 的一个变种
-> * View
-> * Model
-> * Presenter 可以理解为松散的控制器，其中包含了视图的 UI 业务逻辑，所有从视图发出的事件，都会通过代理给 Presenter 进行处理；同时，Presenter 也通过视图暴露的接口与其进行通信。
+    > MVP 架构模式是 MVC的改良模式（改进Controller， 把Model和View完全隔离开）
 
-    ![MVP](./img/mvp.png "Optional title")
+    * Model
+    * View
+    * Presenter 可以理解为松散的控制器，其中包含了视图的 UI 业务逻辑，所有从视图发出的事件，都会通过代理给 Presenter 进行处理；同时，Presenter 也通过视图暴露的接口与其进行通信。
+
+    ![MVP](./img/mvp.png "MVP")
 
 * MVVM
->由MVP模式演变而来
-> * View
-> * Model
-> * ViewModel  类似与MVP中的Presenter，唯一的区别是，它采用双向绑定：View的变动，自动反映在 ViewModel，反之亦然
+    > 由MVP模式演变而来
 
-    ![MVVM](./img/mvvm.png "Optional title")
+    * Model
+    * View
+    * ViewModel  类似与MVP中的Presenter，唯一的区别是，它采用双向绑定：View的变动，自动反映在 ViewModel，反之亦然
+
+    ![MVVM](./img/mvvm.png "MVVM")
 
     - 核心思想：关注Model的变化，让MVVM框架利用自己的机制去自动更新DOM，从而把开发者从操作DOM的繁琐中解脱出来！
 
@@ -81,44 +89,55 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
 ### 常用配置选项
 * 关于DOM节点
     * el（类型：Selector|Element)
-    >Vue实例的挂载目标，挂载元素会被 Vue 生成的 DOM 替换
+        > Vue实例的挂载目标（实例中所有的属性/方法可直接在el中直接使用），挂载元素会被 Vue 生成的 DOM 替换
     * template（类型：String）
-    >模板，如果不指定则以ele所在元素作为模板
-
+        > 模板，如果不指定则以ele所在元素作为模板
         * Selector：提取内容到template标签，并指定选择器
+    - render（类型：Function）
+        > template的代替方案，允许你发挥 JavaScript 最大的编程能力。该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode
+        * 优先级：render > template > el.innerHTML
+
+        ```js
+            new Vue({
+                //...
+                el:'#app',
+                template:`<div>{{username}}</div>`,
+                render:createElement=>{
+                    return createElement(App)
+                }
+            })
+        ```
 * 关于数据
     - data（类型：Object|Function)
-    >当一个 Vue 实例被创建时，它向 Vue 的**响应式系统**中加入了其 data 对象中能找到的所有的属性，当这些数据改变时，视图会进行重渲染
+        > Vue实例化时，它将data中所有的属性添加到**响应式系统**中，当这些数据改变时，视图会进行重渲染
 
     - computed（类型：Object)
-    >对于需要复杂逻辑或运算才能得到的值，应当使用计算属性
+        > 对于需要复杂逻辑或运算才能得到的值，应当使用计算属性
     - methods（类型：Object)
-    >一般用于编写公共方法、事件处理函数等，方法中的this指向实例，所以不应该使用箭头函数来定义 method 函数
+        >一般用于编写公共方法、事件处理函数等，方法中的this指向实例，所以不应该使用箭头函数来定义 method 函数
     - watch（Object）
-    >监听属性（Function），监听的值被修改时会自动调用函数，当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的
-    ```js
-        watch: {
-            username: function (val, oldVal) {
-                console.log('new: %s, old: %s', val, oldVal)
+        >监听属性（Function），监听的值被修改时会自动调用函数，当需要在数据变化时执行异步或开销较大的操作时，这个方式是最有用的
+        ```js
+            watch: {
+                username: function (val, oldVal) {
+                    console.log('new: %s, old: %s', val, oldVal)
+                }
             }
-        },
-    ```
-
-    - render
-    >字符串模板template的代替方案，允许你发挥 JavaScript 最大的编程能力。该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode
-        * 优先级：render > template > ele.innerHTML
-
+        ```
 
 ## 实例属性&方法
 
-* 响应式数据属性
-    - 遍历data中所有属性，设置它们的getter & setter，并写入Vue的实例
-    - **双向数据绑定原理**
+* 响应式数据属性/方法
+    > 遍历data/computed/methods中所有属性/方法，设置它们的getter & setter，并写入Vue的实例
+    * 存储器属性（getter & setter）
+    * **双向数据绑定原理**
+        * View -> Model
+        * Model -> View
 * 内置属性
->除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
+    > 除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
 
-    - $data 同 data
-    - $el 同 el节点
+    - $data: 同 data
+    - $el: 同 el节点
     - $parent
     - $children
     - $root
@@ -126,18 +145,18 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
     * 数据data
         - $watch()：监听数据变化，同watch配置选项
         - $set(target,key,val)：Vue.set()的别名，向**响应式系统**中的对象添加属性并**自动渲染**
-        >注意：target对象不能是 Vue 实例，或者 Vue 实例的根数据对象
+            > 注意：target对象不能是 Vue 实例，或者 Vue 实例的根数据对象
     * 事件event
         - $on()     ：监听当前实例上的自定义事件
         - $off()    ：移除自定义事件监听器
         - $emit()   ：触发当前实例上的事件
     * 生命周期函数
         * $mount()  ：
-        >如果 Vue 实例在实例化时没有配置 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 vm.$mount() 手动地挂载一个未挂载的实例
+            > 如果 Vue 实例在实例化时没有配置 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 vm.$mount() 手动地挂载一个未挂载的实例
         * $destroy()
-        >完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。触发 beforeDestroy 和 destroyed 的钩子
+            > 完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。触发 beforeDestroy 和 destroyed 的钩子
         * $nextTick(callback)
-        >同Vue.nextTick()，将回调延迟到下次 DOM 更新循环之后执行
+            > 同Vue.nextTick()，将回调延迟到下次 DOM 更新循环之后执行
         * $forceUpdate() 强制刷新组件
 
     ```javascript
@@ -174,20 +193,21 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
 指令是带有 v-* 前缀的特殊属性，格式：`v-指令名:参数.修饰符`
 
 ### 内置指令
+
 #### 数据绑定
 * 单向数据绑定
     * {{}}：插值表达式
-    >差值表达式中应当放置一些简单的运算（data中的数据、函数执行、三元运算等），对于任何复杂逻辑，你都应当使用计算属性操作完成后再写入插值表达式
+        > 差值表达式中应当放置一些简单的运算（data中的数据、函数执行、三元运算等），对于任何复杂逻辑，你都应当使用计算属性操作完成后再写入插值表达式
     * v-text：显示文本
     * v-html：显示html内容
     * v-bind：可绑定任意属性
         ```html
-        <img v-bind:src="imgurl">
-        <!-- 简写  -->
-        <img :src="imgurl">
+            <img v-bind:src="imgurl">
+            <!-- 简写  -->
+            <img :src="imgurl">
         ```
         - 对style与class的绑定
-        >在将 v-bind 用于 class 和 style 时，Vue做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组
+            > 在将 v-bind 用于 class 和 style 时，Vue做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组
        
         ```html
             <div class="static"
@@ -214,26 +234,29 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
         ```
         * 遍历对象
         ```html
-            <tr v-for = "(value, key, index) in obj"></tr>
+            <tr v-for = "(value, key, index) in obj">
+                <td>{{index+1}}</td>
+                <td>{{key}}-{{value}}</td>
+            </tr>
         ```
     * key 
-    >Vue对相同的元素进行展示排序等操作时，遵循“就地复用”原则，指定key属性后，意为去掉“就地复用”特性
+        > Vue对相同的元素进行展示排序等操作时，遵循“就地复用”原则，指定key属性后，意为去掉“就地复用”特性
 * v-model双向数据绑定
->v-model一般用于表单元素，会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源
+    > v-model一般用于表单元素，会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源
 
     - 单行文本框text
-    >v-model值绑定到value属性
+        > v-model值绑定到value属性
     - 多行文本框textarea
-    >v-model值绑定到value属性
+        > v-model值绑定到value属性
     - 单选框radio
-    >v-model值绑定到value属性
+        > v-model值绑定到value属性
     - 复选框checkbox
         + 初始值为数组，与value属性绑定
         + 初始值为其他，与checked属性绑定(true,false)
             + true-value：设置选中时的值
             + false-value：设置补选中时的值
     - 选择框select
-    >v-model值绑定到value属性，无value属性则与内容绑定
+        > v-model值绑定到value属性，无value属性则与内容绑定
     - 修饰符
         - lazy
         - number

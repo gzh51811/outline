@@ -86,3 +86,28 @@ new Person(a,b,c)
 new Person()
 new Person()
 new Person()
+
+### Vue
+* jquery -> angular(MVC、双向数据绑定、依赖注入) -> Reat(Facebook:Virtual DOM,事件优化...) -> Vue()
+
+* 架构模式 
+    * 架构师：分工、维护、测试...
+    * 分层
+        * MVC -> MVP -> MVVM
+
+
+* VUE
+    * 学习Vue一定要改变节点操作的固有思维，把关注点从DOM节点操作改到数据操作上来
+    * 特点
+        * 高性能
+            * 节点频繁操作
+            * 事件的处理方式
+            * 请求数量
+            ...
+        * 易用
+        * 双向数据绑定
+        ...
+
+* flash
+    * AS actionscript
+    * JS javascript

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>配置选项</title>
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <h1>配置选项</h1>
+    <div id="app">
+        <input type="text" v-model="username">
+    </div>
+
+    <template id="mybox">
+        <div class="box">
+            outertemplate ：{{username}}
+            <input type="text" v-model="password"/>
+        </div>
+    </template>    
+
+    <script>
+        /**
+            * 配置选项：实例化Vue时传入的参数
+                * el
+                * template
+                * render()
+                * data
+            * 指令
+                * v-bind:attr
+        */
+
+        // 实例化
+        let vm = new Vue({
+            // 设置挂载点：vm下的属性都可以挂载到view视图层
+            el:'#app',
+            data:{
+                username:'laoxie',
+                password:123456,
+                gender:'男'
+            },
+
+            // template中的内容会覆盖挂载点el中的内容（el.outerHTML）
+            // template:`<div class="box">
+            //         template ：{{username}}
+            //         <input type="text" v-model="password"/>
+            //     </div>
+            //     `
+
+            // template:'#mybox',
+
+            // 渲染函数
+            // render(createElement){
+            //     return createElement('div','test')
+            // }
+        });
+
+
+        console.log('vm：',vm)
+       
+    </script>
+</body>
+</html>
