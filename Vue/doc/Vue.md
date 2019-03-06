@@ -94,8 +94,8 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
         > 模板，如果不指定则以ele所在元素作为模板
         * Selector：提取内容到template标签，并指定选择器
     - render（类型：Function）
-        > template的代替方案，允许你发挥 JavaScript 最大的编程能力。该渲染函数接收一个 createElement 方法作为第一个参数用来创建 VNode
-        * 优先级：render > template > el.innerHTML
+        > template的代替方案，允许你发挥 JavaScript 最大的编程能力。该渲染函数接收一个 createElement(tagName,props,children) 方法作为第一个参数用来创建 VNode
+        * 优先级：render > template > el.outerHTML
 
         ```js
             new Vue({
@@ -103,7 +103,7 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
                 el:'#app',
                 template:`<div>{{username}}</div>`,
                 render:createElement=>{
-                    return createElement(App)
+                    return createElement('h1',{title:'标题',class:'title'},'文章标题')
                 }
             })
         ```
@@ -126,44 +126,53 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
         ```
 
 ## 实例属性&方法
+> Vue实例化时，会遍历data/computed/methods中所有属性/方法，并写入Vue的实例
 
-* 响应式数据属性/方法
-    > 遍历data/computed/methods中所有属性/方法，设置它们的getter & setter，并写入Vue的实例
-    * 存储器属性（getter & setter）
-    * **双向数据绑定原理**
-        * View -> Model
-        * Model -> View
-* 内置属性
-    > 除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
+### 响应式属性
+> 遍历data中所有属性，通过Object.defineProperty()方法把它们设置为存储器属性（getter & setter），并写入Vue实例
 
-    - $data: 同 data
-    - $el: 同 el节点
-    - $parent
-    - $children
-    - $root
-* 方法
-    * 数据data
-        - $watch()：监听数据变化，同watch配置选项
-        - $set(target,key,val)：Vue.set()的别名，向**响应式系统**中的对象添加属性并**自动渲染**
-            > 注意：target对象不能是 Vue 实例，或者 Vue 实例的根数据对象
-    * 事件event
-        - $on()     ：监听当前实例上的自定义事件
-        - $off()    ：移除自定义事件监听器
-        - $emit()   ：触发当前实例上的事件
-    * 生命周期函数
-        * $mount()  ：
-            > 如果 Vue 实例在实例化时没有配置 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 vm.$mount() 手动地挂载一个未挂载的实例
-        * $destroy()
-            > 完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。触发 beforeDestroy 和 destroyed 的钩子
-        * $nextTick(callback)
-            > 同Vue.nextTick()，将回调延迟到下次 DOM 更新循环之后执行
-        * $forceUpdate() 强制刷新组件
+* 存储器属性（getter & setter）
+* **双向数据绑定原理**
+    * View -> Model
+    * Model -> View
+* 设置响应式属性
+    * 设置初始化数据
+    * Vue.set(target,key,val) 向**响应式系统**中的对象添加属性并自动渲染视图
+        > 注意：target对象不能是 Vue 实例，或者 Vue 实例的根数据对象
+    * 数组变异方法
 
-    ```javascript
-        vm.$watch('name', function (newValue, oldValue) {
-          // 这个回调将在 `vm.name` 改变后调用
-        });
-    ```
+### 内置属性
+> 除了数据属性，Vue 实例还提供了一些有用的实例属性与方法。它们都有前缀 $，以便与用户定义的属性区分开来
+
+- $data: 同 data
+- $el: 同 el节点
+- $parent
+- $children
+- $root
+
+### 内置方法
+
+* 数据data
+    - $watch()：监听数据变化，同watch配置选项
+    - $set()：Vue.set()的别名
+* 事件event
+    - $on()     ：监听当前实例上的自定义事件
+    - $off()    ：移除自定义事件监听器
+    - $emit()   ：触发当前实例上的事件
+* 生命周期函数
+    * $mount()  ：
+        > 如果实例化时未配置 el 选项，则它处于“未挂载”状态，没有关联的 DOM 元素。可以使用 vm.$mount() 手动地挂载
+    * $destroy()
+        > 完全销毁一个实例。清理它与其它实例的连接，解绑它的全部指令及事件监听器。触发 beforeDestroy 和 destroyed 的钩子
+    * $nextTick(callback)
+        > 同Vue.nextTick()，将回调延迟到下次 DOM 更新循环之后执行
+    * $forceUpdate() 强制刷新组件
+
+```javascript
+    vm.$watch('name', function (newValue, oldValue) {
+        // 这个回调将在 `vm.name` 改变后调用
+    });
+```
 
 
 ## 生命周期
@@ -176,18 +185,20 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
 <img src="./img/lifecycle_hooks.png">
 
 * beforeCreate()
->应用：可以在这加个loading事件 
+    * 应用：可以在这加个loading事件 
 * created()
->应用：在这结束loading，还做一些初始化，实现函数自执行
-
+    * 应用：在这结束loading，还做一些初始化，实现函数自执行
 * beforeMount()
->应用：在这发起后端请求，拿回数据，配合路由钩子做一些事情<br/>
-* mounted()
+    * 应用：在这发起ajax请求，拿回数据，配合路由钩子做一些事情
+* mounted(): 数据挂载成功
+    * 应用：节点操作
 * beforeUpdate()
 * updated()
 * beforeDestroy()
 * destroyed()
->执行destroy()后，不会改变已生成的DOM节点，但后续就不再受vue控制了。
+    > 执行destroy()后，不会改变已生成的DOM节点，但后续就不再受vue控制了
+
+    * 应用：清除定时器、延迟器、取消ajax请求等
 
 ## 指令directive
 指令是带有 v-* 前缀的特殊属性，格式：`v-指令名:参数.修饰符`
@@ -228,6 +239,8 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
         ```
 * 列表渲染
     * v-for
+        > 可遍历Array | Object | number | string | Iterable
+
         * 遍历数组
         ```html
             <li v-for = "(value, index) in arr">{{value}}</li>
@@ -239,8 +252,8 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
                 <td>{{key}}-{{value}}</td>
             </tr>
         ```
-    * key 
-        > Vue对相同的元素进行展示排序等操作时，遵循“就地复用”原则，指定key属性后，意为去掉“就地复用”特性
+    * key：Vue 识别DOM节点的一个通用机制
+        > Vue对相同的元素进行展示排序等操作时，遵循“就地复用”原则，指定key属性后，意为去掉“就地复用”特性（建议尽可能在使用 v-for 时提供 key）
 * v-model双向数据绑定
     > v-model一般用于表单元素，会忽略所有表单元素的 value、checked、selected 特性的初始值而总是将 Vue 实例的数据作为数据来源
 
@@ -269,7 +282,7 @@ Vue.js 是一个基于MVVM模式的一套渐进式框架。它是以数据驱动
     - v-else-if
 
 #### 事件绑定
->格式：v-on:事件类型="事件处理函数"
+>格式：v-on:事件类型.修饰符="事件处理函数"
 
 * v-on
 * 事件修饰符

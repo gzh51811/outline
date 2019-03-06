@@ -111,3 +111,75 @@ new Person()
 * flash
     * AS actionscript
     * JS javascript
+
+
+## day3-3
+
+* 深拷贝：
+    * JSON.parse(JSON.stringify(obj))
+    * 递归
+* 浅拷贝
+    * Object.assign({},obj)
+    * let newObj = {...obj} //ES6扩展运算符
+
+* 语义化 -> SEO
+    * what
+    * why
+    * where
+
+* 怎么设置对象的属性为只读 -> 属性特性
+    * Symbol
+    *
+
+
+    属性特性
+        > 要设置属性特性，必须使用特定方法： Object.defineProperty()
+        > 查看某个属性的属性特性：Object.getOwnPropertyDescriptor()
+        
+        * 值属性（数据属性）
+            * configurable（可配置性：总开关，是否可以修改writable和enumerable的值）
+            * enumerable：枚举性
+            * writable：可写性
+            * value
+        * 存储器属性(getter & setter)
+            * configurable
+            * enumerable
+            * get
+            * set
+
+    var obj = {
+        username:'laoxie'
+    }
+
+    obj.password = 123;
+
+    for..in
+    obj.username = 'jingjing'
+
+
+* 双向数据绑定的原理
+    * v-model
+        * View -> Model
+        * Model -> View
+
+    <input type="text" v-model="username">
+    <input type="text" oninput="change()" :value="username">
+    function change(){
+        data.username = e.targete.value;
+    }
+
+    let data = {username:'xxx'}
+    Object.defineProperty(vm,'username',{
+        get(){
+            return data.username
+        },
+        set(val){
+            data.username = val
+
+            document.querySelector('.username').value = val
+        }
+    })
+
+    vm = new Vue()
+
+    vm.username = 'xxx'

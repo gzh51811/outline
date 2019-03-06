@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>07tab标签切换</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <h1>07tab标签切换</h1>
+    <div class="container" @click="test">
+        <ul class="nav nav-tabs">
+            <li class="nav-item" v-for="(tab,idx) in tabs" v-on:click="change(idx,$event)">
+                <a v-bind:class="{'nav-link':true,active:idx===active}" href="#">{{tab.title}}</a>
+            </li>
+        </ul>
+        <div class="content" v-for="(tab,idx) in tabs" v-show="idx===active">{{tab.content}}</div>
+    </div>
+    <script>
+        /**
+            指令
+                * v-for 遍历
+                * 显示隐藏
+                    * v-if/v-else/v-else-if
+                    * v-show
+                * 属性操作
+                    * 格式：v-bind:属性=属性值
+                    * 简写：:src='imgurl'
+                    * class
+                    * style
+                * 事件
+                    * 格式：v-on:事件类型=事件处理函数
+                    * 简写：@click="change"
+
+        */
+        let vm = new Vue({
+            el:'.container',
+            data:{
+                tabs:[
+                    {
+                        title:'laoxie',
+                        imgurl:'img/laoxie.jpg',
+                        content:'laoxie最爱敲代码'
+                    },
+                    {
+                        title:'jingjing',
+                        imgurl:'img/jingjing.png',
+                        content:'jingjing最爱健身'
+                    },
+                    {
+                        title:'tingting',
+                        imgurl:'img/ting.jpg',
+                        content:'tingting最爱和静静健身'
+                    }
+                ],
+                active:0
+            },
+            
+            // 方法
+            methods:{
+                change(idx,event){
+                    // 在vue的事件处理函数中
+                    // * 默认传递event对象
+                    // * 如果传递了自定参数，event对象必须手动传递
+                    console.log(idx,event)
+                    this.active = idx;
+                },
+                test(){
+                    console.log('test')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

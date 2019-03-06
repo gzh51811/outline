@@ -63,11 +63,12 @@
             // setter：设置属性时得到什么
             get age(){
                 // 读取age属性时，执行这里的代码
-                return 18
+                return myscore.chinese
             },
             set age(val){
                 // 当修改age属性时，执行这里的代码
                 console.log(666,val)
+                myscore.chinese = val
             },
 
             get piaofang(){
@@ -77,6 +78,9 @@
                 document.querySelector('#pf').value = val;
             }
         }
+
+        obj.age;//18
+        obj.age = 66;
 
         // 遍历myscore对象下的所有属性，并把他们设置成存储器属性
         // Object.defineProperty(obj,key,desc)
