@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>案例_表格操作</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<style>
+		th label{margin:0;}
+		td img{height:30px;width:30px;}
+		.player audio{width:100%;}
+	</style>
+	<script src="lib/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app" class="container-fluid">
+		<h1>表格操作</h1>
+		<table class="table table-striped table-sm">
+			<thead>
+				<th><label><input type="checkbox" v-model="checkAll">全选</label></th>
+				<th>#</th>
+				<th>歌手</th>
+				<th>曲名</th>
+				<th>封面</th>
+				<th>文件地址</th>
+				<th>操作</th>
+			</thead>
+			<tbody>
+                <tr v-for="(song,idx) in songs" @click="select(idx)">
+                    <td><label><input type="checkbox" v-model="selected" :value="idx"/></label></td>
+                    <td>{{idx+1}}</td>
+                    <td>{{song.singer}}</td>
+                    <td>{{song.name}}</td>
+                    <td><img :src="song.filename"/></td>
+                    <td>{{song.src}}</td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-outline-success" @click.stop="play(idx)">{{currentIndex==idx&&!player.paused ? '暂停':'播放'}}</button>
+                            <button class="btn btn-outline-danger" @click.stop="remove(idx)">删除</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        {{selected}} - {{player}}
+        <div class="player">
+            <audio :src="songs[currentIndex].src" controls ref="player"></audio>
+        </div>
+	</div>
+	<script>
+		/*
+            案例_表格操作
+            * 选中/取消
+            * 全选/全不选
+            * 删除
+		 */
+		let vm = new Vue({
+			el:'#app',
+			data:{
+                player:{},
+                selected:[],
+                currentIndex:0,
+				songs:[
+				    {
+				        "src": "media/beyond - 喜欢你.mp3",
+				        "singer": "beyond",
+				        "name": "喜欢你",
+				        "filename": "media/beyond - 喜欢你.jpg"
+				    },
+				    {
+				        "src": "media/beyond - 真的爱你.mp3",
+				        "singer": "beyond",
+				        "name": "真的爱你",
+				        "filename": "media/beyond - 真的爱你.jpg"
+				    },
+				    {
+				        "src": "media/方大同 - 红豆 - 完整版.mp3",
+				        "singer": "方大同",
+				        "name": "红豆",
+				        "filename": "media/方大同 - 红豆 - 完整版.jpg"
+				    },
+				    {
+				        "src": "media/杨坤 - 无所谓.mp3",
+				        "singer": "杨坤",
+				        "name": "无所谓",
+				        "filename": "media/杨坤 - 无所谓.jpg"
+				    },
+				    {
+				        "src": "media/陈冠蒲-蓝眼泪.mp3",
+				        "singer": "陈冠蒲",
+				        "name": "蓝眼泪",
+				        "filename": "media/陈冠蒲-蓝眼泪.jpg"
+				    },
+				    {
+				        "src": "media/陈奕迅 - 十年.mp3",
+				        "singer": "陈奕迅",
+				        "name": "十年",
+				        "filename": "media/陈奕迅 - 十年.jpg"
+				    },
+				    {
+				        "src": "media/陈妃平-永远到底有多远.mp3",
+				        "singer": "陈妃平",
+				        "name": "永远到底有多远",
+				        "filename": "media/陈妃平-永远到底有多远.jpg"
+				    },
+				    {
+				        "src": "media/陈小春-我有什么资格不要你.mp3",
+				        "singer": "陈小春",
+				        "name": "我有什么资格不要你",
+				        "filename": "media/陈小春-我有什么资格不要你.jpg"
+				    },
+				    {
+				        "src": "media/陈慧娴-千千阙歌(粤).mp3",
+				        "singer": "陈慧娴",
+				        "name": "千千阙歌(粤)",
+				        "filename": "media/陈慧娴-千千阙歌(粤).jpg"
+				    },
+				    {
+				        "src": "media/陈慧林-花花宇宙.mp3",
+				        "singer": "陈慧林",
+				        "name": "花花宇宙",
+				        "filename": "media/陈慧林-花花宇宙.jpg"
+				    },
+				    {
+				        "src": "media/陈慧琳-记事本.mp3",
+				        "singer": "陈慧琳",
+				        "name": "记事本",
+				        "filename": "media/陈慧琳-记事本.jpg"
+				    },
+				    {
+				        "src": "media/陈琳 - 爱就爱了.mp3",
+				        "singer": "陈琳",
+				        "name": "爱就爱了",
+				        "filename": "media/陈琳 - 爱就爱了.jpg"
+				    },
+				    {
+				        "src": "media/陈超-求佛.mp3",
+				        "singer": "陈超",
+				        "name": "求佛",
+				        "filename": "media/陈超-求佛.jpg"
+				    },
+				    {
+				        "src": "media/筷子兄弟-小苹果.mp3",
+				        "singer": "筷子兄弟",
+				        "name": "小苹果",
+				        "album": "media/筷子兄弟-小苹果.jpg"
+				    },
+				    {
+				        "src": "media/凤凰传奇-最炫民族风.mp3",
+				        "singer": "凤凰传奇",
+				        "name": "最炫民族风",
+				        "album": "media/凤凰传奇-最炫民族风.jpg"
+				    }
+				],
+            },
+            computed:{
+                // computed中的属性为getter&setter
+                // 默认为getter
+                // checkAll(){
+                //     // 返回true:所有的索引值都存在seleted中
+                //     // 返回false:只要有一个索引值不在selected中
+                //     return this.songs.every((song,idx)=>this.selected.includes(idx))
+                // }
+                checkAll:{
+                    get(){
+                        return this.songs.every((song,idx)=>this.selected.includes(idx))
+                    },
+                    set(checked){
+                        this.selected = checked ? this.songs.map((item,idx)=>idx) : [];
+                    }
+                }
+            },
+            methods:{
+                select(idx){
+                    // 获取idx在数组中的位置
+                    let index = this.selected.indexOf(idx);
+                    if(index>=0){
+                        // 如果当前已勾选，则取消勾选
+                        this.selected.splice(index,1)
+                    }else{
+                        this.selected.push(idx)
+                    }
+                },
+                remove(idx){
+                    this.songs.splice(idx,1);
+                },
+                play(idx){
+                    this.currentIndex = idx;
+
+                    let {player} = this.$refs;
+
+                    // 立即播放
+                    // setTimeout(()=>{
+
+                    //     this.$refs.player.play();
+                    // },500);
+
+                    // Vue.nextTick()
+                    this.$nextTick(()=>{
+                        if(player.paused){
+                            player.play();
+                        }else{
+                            player.pause();
+                        }
+
+                        this.$forceUpdate();
+                    })
+                }
+
+                // all(e){
+                //     if(e.target.checked){
+                //         // 全选
+                //         this.selected = this.songs.map((item,idx)=>idx);//[0,1,2,3,4,5..]
+                //     }else{
+                //         // 全不选
+                //         this.selected = []
+                //     }
+                // }
+            },
+            mounted(){
+                this.player = this.$refs.player
+            }
+		})
+		
+	</script>
+</body>
+</html>
