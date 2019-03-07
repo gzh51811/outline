@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>实现一个可复用的搜索组件</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       <my-search button="查询" :data="city"></my-search>
+       <my-search :data="fe" :num="10"></my-search>
+    </div>
+
+    <template id="mySearch">
+        <div class="my-search p-5">
+            <div class="input-group">
+                <input type="text" class="form-control"/>
+                <div class="input-group-append">
+                    <button class="btn btn-success">{{button}}</button>
+                </div>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item" v-for="city in data">{{city}}</li>
+            </ul>
+        </div>
+    </template>
+    <script>
+        /**
+            实现一个可复用的搜索组件
+
+            * 组件通讯
+                * 父->子：props
+                    1. 父组件传递属性
+                    2. 子组件接收属性
+                * prop数据验证
+                    * 默认值
+        */
+
+        Vue.component('mySearch',{
+            template:'#mySearch',
+            props:{
+                button:{
+                    type:String,
+                    default:'搜索'
+                },
+
+                // data数据类型只允许为数组
+                data:Array,
+
+                // 自定义校验规则
+                num:{
+                    type:Number,
+                    validator(value){
+                        // 只允许1-10的数字
+                        // return typeof value==='number' && value>=1 && value<=10
+                        return value>=1 && value<=10
+                    }
+                }
+            },
+            data(){
+                return {
+                    
+                }
+            }
+        });
+
+        new Vue({
+            el:'#app',
+            data:{
+                city:['广州','北京','上海','东莞','深圳','香港'],
+                fe:['HTML',"CSS",'Javascript','Vue','React']
+            }
+        })
+    </script>
+    
+</body>
+</html>

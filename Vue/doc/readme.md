@@ -211,4 +211,44 @@ new Person()
         this.$set()
     * Vue.set(target,key,val)
     * 变异数组方法
-    
+
+* 断点
+    * 暂停代码的执行
+    * 事件传播
+        * 冒泡
+        * 捕获
+
+        把事件处理函数放到哪个阶段执行
+        guangzhou.onclick = function(){
+            console.log('叫爸爸事件')
+        }
+
+        guangzhou.addEventListener('click',()=>{},true)
+
+        vue做了事件优化：事件绑定在document
+
+        oldVNode    newVNode  -> diff算法 -> 是否更新View
+
+        {
+            tag:'div'
+            attrs:{},
+            children:[
+                {
+                    tag:'h4'
+                    attrs:{title:'xx'}
+                }
+            ]
+            ....
+        }
+
+        div.innerHTML = 'my name is laoxie';
+        div.innerHTML = 'my name is jingjing';
+        div.innerHTML = 'my name is laoxie';
+
+        nextTick()
+
+        $refs
+
+
+### 组件
+    * FE,BE
