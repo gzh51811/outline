@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>自定义指令</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="lib/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+        <h1 v-laoxie></h1>
+        <input type="text" id="username" v-autofocus>
+    </div>
+	<script>
+		/*
+            自定义指令
+                * 全局指令
+                * 局部指令
+                * 
+            v-text
+		 */
+        
+        // 全局指令
+        // 使用：可以在任意地方使用，格式：v-laoxie
+        Vue.directive('laoxie',{
+            bind: function (el, binding, vnode) {
+                console.log('bind',el, binding, vnode)
+                //binding：包含指令相关信息，属性如下
+                el.innerHTML =
+                'name: '       + JSON.stringify(binding.name) + '<br>' + //指令名
+                'value: '      + JSON.stringify(binding.value) + '<br>' + //指令值
+                'expression: ' + JSON.stringify(binding.expression) + '<br>' + //字符串形式的指令表达式
+                'arg: '        + JSON.stringify(binding.arg) + '<br>' + //指令参数，
+                'modifiers: '  + JSON.stringify(binding.modifiers) + '<br>' //指令修饰符
+            },
+            inserted(el, binding, vnode){
+                console.log('inserted',el, binding, vnode)
+            }
+        });
+
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                user:'jingjing'
+            },
+
+            directives:{
+                autofocus:{
+                    bind(el){console.log(el)
+                        
+                    },
+                    inserted(el,binding){
+                        el.focus();
+                    }
+                }
+            }
+        })
+	</script>
+</body>
+</html>

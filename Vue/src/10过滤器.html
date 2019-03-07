@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+	<title>过滤器</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="lib/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+        {{formatDate(date)}} -> {{date | formatDate('YYYY/MM/DD')}}
+        <p>{{price | formatPrice}}</p>
+    </div>
+	<script>
+		/*
+            过滤器
+                * 格式：value | 过滤器
+                * 全局：Vue.filter(name,definition)
+                * 局部：filters
+                * 
+                
+                * 多个过滤器：{{value | Filter1 | Filter2}}
+                    * 先执行Filter1,并把返回结果传入Filter2
+                    * Filter2(Filter1(value))
+		 */
+        
+        //  全局过滤器
+         Vue.filter('formatPrice',value=>{
+            console.log('value:',value);
+
+            return '￥'+value.toFixed(2)
+         })
+
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                date:Date.now(),
+                price:18
+            },
+            methods:{
+                formatDate(date){
+                    let d = new Date(date);
+
+                    let year = d.getFullYear();
+                    let month = d.getMonth()+1;
+                    let day = d.getDate();
+
+                    return `${year}-${month}-${day}`
+                }
+            },
+
+            // 局部过滤器
+            filters:{
+                formatDate(date,arg1){console.log(date,arg1)
+                    // 练习：根据传入的参数返回不同的时间格式
+                    let d = new Date(date);
+
+                    let year = d.getFullYear();
+                    let month = d.getMonth()+1;
+                    let day = d.getDate();
+
+                    return `${year}/${month}/${day}`;
+                }
+
+                // 练习2：编写过滤器实现以下效果：
+                // 100000 -> 1,000,000
+            }
+        })
+	</script>
+</body>
+</html>

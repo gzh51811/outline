@@ -182,4 +182,33 @@ new Person()
 
     vm = new Vue()
 
-    vm.username = 'xxx'
+    vm.username = 'xxx';
+
+
+* 如何取消ajax请求
+    * abort()
+
+## day3-4
+* Vue的特点：
+    * 渐进式框架（扩展性强）
+    * 双向数据绑定（ng）
+    * Virtual DOM（结构类似于DOM节点的js对象）
+    * 组件化开发
+    * 易用性（关注数据、中文文档完善）
+
+* 响应式属性
+    * data
+        {
+            arr:[]
+            score:{
+                math,
+                englisth,
+                chinese
+            }
+        }
+
+        this.score.cn = 60;
+        this.$set()
+    * Vue.set(target,key,val)
+    * 变异数组方法
+    
