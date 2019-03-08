@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>14组件_通讯_子to父</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+    <div id="app" class="p-5">
+       <!-- <mybox :num="num" v-on:changenum="changeNum"></mybox> -->
+
+       <!-- 简化操作 -->
+       <mybox :num.sync="num"></mybox>
+    </div>
+
+    <template id="mybox">
+        <div class="my-box">
+            <button @click="change" class="btn btn-outline-success">{{num}}</button>
+        </div>
+    </template>
+    <script>
+        /**
+            Vue的组件通讯：单向数据流    
+            14组件_通讯_子to父
+                * 父->子：props
+                * 子->父：
+                    * 传递事件处理函数
+                    * 自定义事件+$emit()
+                    * sync修饰符
+                        * v-bind:num.sync等效于以下操作
+                        * v-bind:num="somevalue" v-on:update="(val)=>{somevalue=val}"
+                * 兄弟通讯
+                    * 
+        */
+
+        Vue.component('mybox',{
+            props:['num'],
+            methods:{
+                change(){
+                    // 无法直接修改：报错
+                    // this.num++;
+
+                    // 传递事件处理函数
+                    // this.forchange();
+
+                    // 自定义事件+$emit
+                    // this.$emit('changenum',this.num+5)
+
+                    // 简化操作
+                    this.$emit('update:num',this.num+5)
+                }
+            },
+            template:'#mybox'
+        })
+
+        new Vue({
+            data:{
+                num:10
+            },
+            methods:{
+                changeNum(n){
+                    // 谁的数据谁修改
+                    // this.num++;
+                    this.num = n
+                }
+            }
+        }).$mount('#app')
+    </script>
+    
+</body>
+</html>

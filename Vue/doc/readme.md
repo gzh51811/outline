@@ -252,3 +252,23 @@ new Person()
 
 ### 组件
     * FE,BE
+
+
+## day3-5
+* 自我介绍
+* 项目流程
+* 项目管理系统
+    * bug管理
+        * open
+        * fixed
+        * closed
+        * reopen
+    * bug重现
+
+* 版本号：xx.xx.xx
+
+* 复习Vue组件
+    * 定义
+    * 使用
+    * 通讯
+        * 父 -> 子：  props

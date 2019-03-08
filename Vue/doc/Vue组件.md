@@ -123,7 +123,8 @@
 >此类属性会自动成为组件根节点的属性
 
 * prop数据验证
->对传入的prop属性进行校验，如：数据类型、必填、默认值等
+  > 对传入的prop属性进行校验，如：数据类型、必填、默认值等
+
 ```javascript
   Vue.component('my-component', {
     props: {
@@ -358,11 +359,11 @@
   <component v-bind:is="currentTabComponent"></component>
 ```
 * `<keep-alive>` 缓存组件
->把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染可以添加一个 keep-alive 
->包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们，主要用于保留组件状态或避免重新渲染
+  > 把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染可以添加一个 keep-alive 
+  > 包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们，主要用于保留组件状态或避免重新渲染
 
-    * include ： 指定缓存组件名
-    * exclude ： 指定不缓存的组件名
+    * include（String/Regexp） ： 指定缓存组件名
+    * exclude（String/Regexp） ： 指定不缓存的组件名
 
 ```html
   <keep-alive>
@@ -370,44 +371,26 @@
   </keep-alive>
 ```
 
-* `<slot>` 内容分发（[详情](#利用插槽分发内容)） 
+* `<slot>` 内容分发（[详情](#插槽内容)） 
 
 #### 过渡动画 
->`<transition>` & `<transition-group>` 
+* `<transition>`
+* `<transition-group>` 
 
-在下列情形中，可以给任何元素和组件添加进入/离开过渡
+> `<transition>`用于单个元素动画，`<transition-group>`用于多个元素并解析为一个标签（默认:span）
 
-* 条件渲染 (使用 v-if)
-* 条件展示 (使用 v-show)
-* 动态组件
-* 组件根节点
+##### 属性
+* name : 过渡类名前缀（默认：v）
+  > 如设置name="fade"，过渡类名变成：fade-enter / fade-enter-active / fade-leave / fade-leave-active
+* css  : boolean，是否使用 CSS 过渡类（默认：true）。设置为 false，将只通过组件事件触发注册的 JavaScript 钩子。
 
->过渡效果的应用可以通过以下方式实现：
-
-##### CSS过渡
-* 通过CSS过渡类名
->组件过渡过程中，会有四个CSS类名自动进行切换，会有如下四个CSS类名：
-
-    * v-enter：进入过渡的开始状态，元素被插入时生效，只应用一帧后立即删除；
-    * v-enter-active：进入过渡的结束状态，元素被插入时就生效，在过渡过程完成之后移除；
-    * v-leave：离开过渡的开始状态，元素被删除时触发，只应用一帧后立即删除；
-    * v-leave-active：离开过渡的结束状态，元素被删除时生效，离开过渡完成之后被删除；
-
-    ![transition](./img/transition.png "Optional title")
-
-  >可以通过transition的name属性修改类名（如name="fade"），
-
-* 通过`<transition>`的属性自定义过渡类名
+* 自定义过渡类名（可配合animate.css框架实现过渡效果）
   * enter-class
   * enter-active-class
   * enter-to-class
-
   * leave-class
   * leave-active-class
   * leave-to-class
-  
-  >可配合animate.css框架实现过渡效果
-
   ```html
     <transition
       enter-active-class="bounceIn"
@@ -416,8 +399,28 @@
     </transition>
   ```
 
+##### 触发动画场景
+> Vue会自动检测是否设置css动画或JavaScript钩子，并在下列情形中添加进入/离开过渡效果（css过渡或javascript过渡）
+
+* 条件渲染 (使用 v-if)
+* 条件展示 (使用 v-show)
+* 动态组件
+* 组件根节点
+
+##### CSS过渡
+* 通过CSS过渡类名
+  > 组件过渡过程中，默认会有四个CSS类名自动进行切换，会有如下四个CSS类名：
+
+  * v-enter：进入过渡的开始状态，元素被插入时生效，只应用一帧后立即删除；
+  * v-enter-active：进入过渡的结束状态，元素被插入时就生效，在过渡过程完成之后移除；
+  * v-leave：离开过渡的开始状态，元素被删除时触发，只应用一帧后立即删除；
+  * v-leave-active：离开过渡的结束状态，元素被删除时生效，离开过渡完成之后被删除；
+
+  ![transition](./img/transition.png "Optional title")
+
+
 ##### JavaScript过渡
->通过内置事件实现过渡动画效果
+>通过内置事件实现过渡动画效果，可以利用第三方动画库（如：velocity.js,jquery等）实现动画效果
 
 ```html
     <transition
