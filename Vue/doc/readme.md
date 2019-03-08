@@ -272,3 +272,49 @@ new Person()
     * 使用
     * 通讯
         * 父 -> 子：  props
+        * 子 -> 父：自定义事件+$emit()
+        * 兄弟->兄弟：
+            * 子->父
+            * 父->子
+        * 无关联组件通讯
+            * 利用第三方实例bus作为传输桥梁：let bus = new Vue();
+            * 接收方：bus.$on('data',(num)=>{})
+            * 传输方：bus.$emit('data',100)
+
+* Vue的数据流：
+    * 单向数据流（数据只能父组件往子组件传输）
+    * 双向数据流（angularjs）
+
+
+* call & apply & bind
+> fn.call(obj,多个参数),fn.apply(obj,数组),fn.bind(obj) -> fn()
+    * 共同点
+        * 都可以改变函数this指向
+        * 都是函数的方法
+    * 不同点
+        * call&apply会执行fn函数，而bind只是改变this指向
+        * call & apply 功能一样，区别在于参数不同
+
+    * 类数组
+        * 类数组.map()
+
+* vue单文件组件
+
+### webpack
+* webpack与gulp的区别
+gulp是基于任务的打包工具，webpack是基于配置的打包工具
+
+目的：编译vue单文件组件
+
+
+new Vue({
+    template:`
+        <div>
+        <todoForm></todoForm>
+        <todoContent></todoContent>
+    </div>
+    `
+})
+
+
+npm脚本命令

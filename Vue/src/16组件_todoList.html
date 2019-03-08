@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>16组件_todoList</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="p-5">
+        <todo-list></todo-list>
+    </div>
+
+    <template id="todoList">
+        <div>
+            <todo-form></todo-form>
+            <todo-content></todo-content>
+        </div>
+    </template>
+
+    <template id="todoContent">
+        <div>todoContent</div>
+    </template>
+
+
+    <template id="todoForm">
+        <div>todoForm</div>
+    </template>
+
+    <script>
+        /** 
+            16组件_todoList
+               
+        */
+
+        // todoForm
+        let todoForm = {
+            template: '#todoForm'
+        }
+
+        // todoContent
+        let todoContent = {
+            template: '#todoContent'
+        }
+        Vue.component('todoList', {
+            template: `#todoList`,
+            components: {
+                todoForm,
+                todoContent
+            }
+        })
+
+        new Vue({
+            el: '#app'
+        });
+    </script>
+
+</body>
+
+</html>
