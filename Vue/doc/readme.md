@@ -299,6 +299,14 @@ new Person()
         * 类数组.map()
 
 * vue单文件组件
+    * webpack
+        * 配置
+        * 入口/出口
+        * 静态服务器
+        * 加载器
+        * 插件
+    * es module
+    * npm script
 
 ### webpack
 * webpack与gulp的区别
@@ -318,3 +326,5 @@ new Vue({
 
 
 npm脚本命令
+
+key设置原则：唯一、稳定
