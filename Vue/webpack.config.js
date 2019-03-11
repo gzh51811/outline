@@ -38,6 +38,24 @@ module.exports = {
             {
                 test:/\.css$/,
                 loader:['style-loader','css-loader']
+            },
+
+            // 图片加载器
+            {
+				test:/\.(?:jpe?g|png|gif)$/,
+				use:{
+					loader:'url-loader',
+					options:{
+						limit:10000,
+						name: 'img/[name].[hash:8].[ext]'
+					}
+				}
+            },
+            
+            // sass加载器
+            {
+                test:/\.scss$/,
+                loader:['style-loader','css-loader','sass-loader']
             }
         ]
     },

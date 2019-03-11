@@ -353,3 +353,54 @@ key设置原则：唯一、稳定
   </btn-change> 
 
 this.fonSize = 20;
+
+* computed 和 methods的区别
+    * computed VS data
+        * data : 初始化数据
+        * computed : getter & setter
+
+        {{goods}}
+
+    * computed Vs Methods
+        * computed: 属性
+        * methods: 方法
+
+        checkAll(idx) / checkAll
+        * computed有缓存
+
+* 如何理解Promise
+    * async & await
+    * promise状态
+        * pending
+        * resolved
+        * rejected
+    let pro = new Promise((resolve,reject)=>{
+        // ...
+        if(..){
+            resolve(food);
+
+        }else{
+            reject('卖完了')
+        }
+    })
+
+    pro.then((kfc)=>{
+        // 成功点餐
+    })
+
+    pro.catch((err){
+        // 点餐失败
+    })
+
+    Promise.all([pro,pro,pro]).then().catch()
+    Promise.resolve();//把一个普通对象包装成一个状态为resolve的promise对象
+    promise.reject()
+
+    * 应用：
+        * 解决回调地狱
+        * 以同步代码实现异步操作
+
+    * Generatos生成器函数
+    function* show(){
+
+    }

@@ -26,15 +26,21 @@
             </template>
             夜蓝梦
         </myButton>
+
+
+        <!-- 动态组件 -->
+        <dynamicComponent/>
     </div>
 </template>
 <script>
 import todoList from './components/todoList.vue';
 import myButton from './components/myButton.vue';
+import dynamicComponent from './components/dynamicComponent.vue';
 export default {
     components:{
         todoList,
-        myButton
+        myButton,
+        dynamicComponent
     }
 }
 </script>
