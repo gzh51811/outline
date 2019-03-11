@@ -13,10 +13,11 @@ module.exports = {
         filename:'js/[name]-bundle[hash].js'
     },
 
-    // 测试服务器
+    // 测试服务器:在内存中运行
     devServer:{
         contentBase:'./app',
-        port:10086
+        port:10086,
+        open:true, //自动打开浏览器
     },
 
     // 配置Loader加载器（某一类文件的编译规则）

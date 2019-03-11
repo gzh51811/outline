@@ -328,3 +328,28 @@ new Vue({
 npm脚本命令
 
 key设置原则：唯一、稳定
+
+## day4-1
+* Vue单文件组件中局部样式的原理
+    * 属性选择器
+    * scoped
+    * webpack
+
+* Vue组件化开发
+    * 单向数据流
+    * 组件通讯
+        * 父->子： props
+        * 子->父：
+            1. 自定义事件+ $emit
+                * sync简化版：
+            2. 传递事件处理函数（谁的数据谁修改）
+
+
+ <btn-change @bigger="updateFontSize" :color.sync="color"></btn-change>
+  <btn-change :color.sync="color"></btn-change> 
+  等效于
+  <btn-change v-on:update:color="val=>color=val">
+    sakfjasld
+  </btn-change> 
+
+this.fonSize = 20;
