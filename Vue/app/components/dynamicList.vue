@@ -2,7 +2,7 @@
     <div class="list">
         <h4>列表</h4>
         <ul>
-            <li v-for="(img,idx) in imgs" @click="check(idx)" :class="{actitve:currentIndex==idx}">
+            <li v-for="(img,idx) in imgs" @click="check(idx)" :class="{actitve:currentIndex==idx}" :key="idx">
                 <img :src="`../img/${img}`"/>
             </li>
         </ul>

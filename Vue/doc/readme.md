@@ -404,3 +404,9 @@ this.fonSize = 20;
     function* show(){
 
     }
+
+* review 审查、校验
+* 规范
+    * ESlint
+    * BEM
+        * .box__title--active

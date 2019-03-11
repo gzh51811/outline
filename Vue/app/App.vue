@@ -30,17 +30,24 @@
 
         <!-- 动态组件 -->
         <dynamicComponent/>
+
+<br>
+<br>
+        <!-- 动画 -->
+        <myTransition/>
     </div>
 </template>
 <script>
 import todoList from './components/todoList.vue';
 import myButton from './components/myButton.vue';
 import dynamicComponent from './components/dynamicComponent.vue';
+import myTransition from './components/transition.vue';
 export default {
     components:{
         todoList,
         myButton,
-        dynamicComponent
+        dynamicComponent,
+        myTransition
     }
 }
 </script>
