@@ -1,8 +1,10 @@
 <template>
     <div class="home">
         <el-menu :default-active="activeIndex+''" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-            <el-menu-item :index="idx+''" v-for="(nav,idx) in navs" :key="nav.name">
-                <router-link :to="nav.path">{{nav.text}}</router-link>
+            <el-menu-item :index="idx+''" v-for="(nav,idx) in navs" :key="nav.name" 
+            @click="goto(nav)">
+                <!-- <router-link :to="{name:nav.name}" active-class="active" tag="span">{{nav.text}}</router-link> -->
+                {{nav.text}}
             </el-menu-item>
         </el-menu>
         <router-view></router-view>
@@ -10,6 +12,10 @@
 
 </template>
 <script>
+/**
+ * $router：路由实例，具有跳转等方法
+ * $route：当前路由信息，保存当前路由的参数
+ */
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -44,6 +50,11 @@ export default {
             console.log(index,path);
 
             this.activeIndex = index;
+        },
+        goto(nav){
+            console.log('App:',this);
+            this.$router.push({name:nav.name})
+            // this.$router.push({path:nav.path})
         }
     },
 
@@ -52,8 +63,21 @@ export default {
         this.navs.forEach(item=>{
             // Vue.set(item,'path','/'+item.name.toLowerCase())
             item.path = '/'+item.name.toLowerCase()
-        })
+        });
+
+        for(let i=0;i<this.navs.length;i++){
+            if(this.navs[i].name === this.$route.name){
+                this.activeIndex = i;
+                break;
+            }
+        }
+
+       
+        
     }
 }
 </script>
 
+<style>
+.active{color:#f00;}
+</style>

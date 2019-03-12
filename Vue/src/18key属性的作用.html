@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>key的作用</title>
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="p-5">
+        <p v-for="name in nameslist" :ref="name" :key="name">{{name}}</p>
+    </div>
+    <script>
+        /**
+         * key属性的作用（唯一和稳定性）
+         * 无key：就地复用原则（为了减少dom节点操作）
+         * 有key：有利于diff算法的跟踪
+        */
+
+        let vm = new Vue({
+            el:'#app',
+            data:{
+                nameslist:['laoxie','jingjing','lemon','tingting']
+            },
+            mounted(){
+                console.log(this.$refs);
+                for(let dom in this.$refs){
+                    this.$refs[dom][0].myname = this.$refs[dom][0].innerText;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

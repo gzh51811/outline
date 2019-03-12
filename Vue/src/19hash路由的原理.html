@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hash路由的原理</title>
+    <script src="lib/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" class="p-5">
+        
+    </div>
+    <script>
+        /**
+         * hash路由的原理
+         * 根据window的hashchange事件来相应不同的组件
+         * 提示：必须在服务器环境下运行
+        */
+       let app = document.querySelector('#app');
+
+        window.onhashchange = function(){
+            // 根据hash值不同渲染不同的组件
+            let hash = location.hash.slice(1);
+
+            switch(hash){
+                case '/home':
+                app.innerHTML = '首页'
+                break;
+                case '/list':
+                app.innerHTML = '列表'
+                break;
+                case '/goods':
+                app.innerHTML = '商品详情'
+                break;
+                case '/cart':
+                app.innerHTML = '购物'
+                break;
+                default:
+                app.innerHTML = '404'
+
+            }
+        }
+    </script>
+</body>
+
+</html>
