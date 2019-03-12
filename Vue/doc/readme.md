@@ -410,3 +410,15 @@ this.fonSize = 20;
     * ESlint
     * BEM
         * .box__title--active
+
+
+
+## day4-2
+
+### 复习
+* 插槽
+* 内置组件
+
+### 路由
+* SPA   Single Page Application
+一个网站只有一个页面
