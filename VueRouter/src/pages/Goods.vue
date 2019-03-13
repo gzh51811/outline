@@ -2,14 +2,11 @@
     <div>
         商品详情
         <img :src="goodsinfo.goods_image"/>
-
-        {{$route.parmas.id}} - {{id}}
         
     </div>
 </template>
 <script>
 export default {
-    props:['id'],
     data(){
         return {
             goodsinfo:{}
@@ -44,9 +41,18 @@ export default {
     },
     mounted(){console.log('mounted')
         this.getData()
+
+        this.timer = setInterval(()=>{
+            console.log('interval')
+        },2000);
     },
-    beforeRouteUpdate(to,from){
-        console.log('beforeRouteUpdate',to,from)
+    // beforeRouteUpdate(to,from){
+    //     console.log('beforeRouteUpdate',to,from)
+    // },
+    destroyed(){
+        console.log('destroyed');
+
+        clearInterval(this.timer)
     }
 }
 </script>

@@ -450,3 +450,16 @@ myhtml = '<h4></h4><img src="jingjing.png"/>点我有惊喜<script> location.hre
             * 配置参数
                 * routes
         4. 注入Vue根实例
+
+* babel
+    * babel-preset-env
+    * babel-preset-stage-0
+    * .babelrc
+
+
+* 路由传参
+    * 跳转时传递
+        * params
+        * query
+    * 定义时传递
+        * props

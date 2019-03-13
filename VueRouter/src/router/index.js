@@ -11,6 +11,7 @@ import List from '../pages/List.vue'
 import Goods from '../pages/Goods.vue'
 import Cart from '../pages/Cart.vue'
 import NotFound from '../pages/NotFound.vue'
+import Login from '../pages/Login.vue'
 
 Vue.use(VueRouter);
 
@@ -52,15 +53,59 @@ let router = new VueRouter({
         {
             name:'Cart',
             path:'/cart',
-            component:Cart
+            component:Cart,
+            meta: { 
+                requiresAuth: true 
+            }
         },
+        {
+            name:'Login',
+            path:'/login',
+            component:Login,
 
+            // 单个路由独享
+            beforeEnter(to,from,next){
+                let username = localStorage.getItem('username')
+                if(username){
+                    next({
+                        name:'Home'
+                    })
+                }else{
+                    next();
+                }
+            }
+        },
         // 404
         {
             path:'*',
             component:NotFound
         }
     ]
+});
+
+// 全局路由守卫
+// 路由拦截：
+router.beforeEach((to,from,next)=>{
+    console.log('beforeEach',to,from,next)
+
+    if(to.meta.requiresAuth){
+        // 需要登录的模块，判断是否已登录
+        let username = localStorage.getItem('username');
+        if(username){
+            next();
+        }else{
+            console.log('from:',to.fullPath)
+            // 重定向到登录页面
+            next({
+                name:'Login',
+                params:{from:to.fullPath}
+            })
+        }
+    }else{
+        next();
+    }
+
+    
 });
 
 export default router;
