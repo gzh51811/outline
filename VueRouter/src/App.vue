@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="container">
         <el-menu :default-active="activeIndex+''" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-menu-item :index="idx+''" v-for="(nav,idx) in navs" :key="nav.name" 
             @click="goto(nav)">
@@ -20,8 +20,13 @@ import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import axios from "axios";
+
 // ElementUI以插件的形式来扩展Vue的功能
-Vue.use(ElementUI)
+Vue.use(ElementUI);
+
+// 把axios设置到Vue的原型对象上，方便在任意组件中使用
+Vue.prototype.$axios = axios;
 
 export default {
     data(){

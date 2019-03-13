@@ -43,7 +43,10 @@ module.exports = {
 
                     // babel的参数
                     options:{
-                        presets:['env']
+                        presets:['env','stage-0'],
+                        plugins: [
+                            "transform-runtime"
+                        ]
                     }
                 },
 

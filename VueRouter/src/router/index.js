@@ -10,12 +10,17 @@ import Home from '../pages/Home.vue'
 import List from '../pages/List.vue'
 import Goods from '../pages/Goods.vue'
 import Cart from '../pages/Cart.vue'
+import NotFound from '../pages/NotFound.vue'
 
 Vue.use(VueRouter);
 
 let router = new VueRouter({
     routes:[
         // 首页:当浏览器地址为path路径是时，自动渲染component对应组件
+        {
+            path:'/',   //重定向：当浏览器url地址为/,自动跳转到/home
+            redirect:'/home'
+        },
         {
             name:'Home',
             path:'/home',
@@ -28,13 +33,32 @@ let router = new VueRouter({
         },
         {
             name:'Goods',
-            path:'/goods',
-            component:Goods
+            path:'/goods/:id',
+            component:Goods,
+            //props为true: 等效于<Goods v-bind="{$route.params}"/>
+            // props:true,
+
+            //props为Object: 等效于<Goods v-bind="Object"/>
+            // props:{username:'laoxie',password:123},
+
+            //props为Object: 等效于<Goods v-bind="Object"/>
+            props:function(route){
+                return {
+                    id:route.params.id,
+                    keyword:route.query.keyword
+                }
+            }
         },
         {
             name:'Cart',
             path:'/cart',
             component:Cart
+        },
+
+        // 404
+        {
+            path:'*',
+            component:NotFound
         }
     ]
 });

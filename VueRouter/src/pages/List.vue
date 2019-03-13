@@ -16,7 +16,6 @@
  * 基于promise的ajax请求工具
  */
 
-import axios from "axios";
 
 export default {
   data() {
@@ -26,13 +25,15 @@ export default {
   },
   methods:{
       goto(id){console.log(id)
-          this.$router.push({path:'/goods',query:{id}})
+      // params传参，不支持path跳转
+          this.$router.push({name:'Goods',query:{id},params:{id}})
         //   this.$router.push({path:'/goods/'+id})
+        //   this.$router.push({'/goods/'+id)
       }
   },
   created() {
     // axios.get('https://www.nanshig.com/mobile/index.php?act=goods&op=goods_list&keyword=&page=10&curpage=1')
-    axios
+    this.$axios
       .get("https://www.nanshig.com/mobile/index.php", {
         params: {
           act: "goods",
@@ -55,8 +56,8 @@ export default {
 <style lang="scss">
 .goodslist{
     overflow:hidden;
-    .box-card{float:left;width:160px;}
-    img{width:160px;}
+    .box-card{float:left;width:260px;}
+    img{width:100%;}
 }
 .price{
     span{
