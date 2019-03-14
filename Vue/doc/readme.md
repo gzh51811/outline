@@ -463,3 +463,7 @@ myhtml = '<h4></h4><img src="jingjing.png"/>点我有惊喜<script> location.hre
         * query
     * 定义时传递
         * props
+
+
+## day4-4
+* ES module

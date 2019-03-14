@@ -1,0 +1,6 @@
+node_modules/
+
+*.zip
+*.rar
+*.mp3
+*.mp4
