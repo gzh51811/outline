@@ -2,6 +2,8 @@
 import Vue from 'vue';
 import Vuex,{Store} from 'vuex';
 
+import state from './state';
+
 // 使用
 Vue.use(Vuex);
 
@@ -16,27 +18,7 @@ Vue.use(Vuex);
 
 const store = new Store({
     // 公共数据
-    state:{
-        cartlist:[{
-            name:'iphoneX',
-            price:998,
-            qty:10
-        },
-        {
-            name:'iphoneXs',
-            price:1998,
-            qty:1
-        },
-        {
-            name:'iphoneXs plus',
-            price:5998,
-            qty:1
-        }
-        ],
-
-        // 推荐商品
-        recommend:[]
-    },
+    state,
 
     getters:{
         lt1k(state){
@@ -46,6 +28,7 @@ const store = new Store({
 
     // 定义state的修改方式：mutations
     mutations:{
+        // 添加商品
         addCartList(state,goods){
             // state: 定义的stat
             // goods: 触发addCartList时传入的参数
@@ -54,6 +37,25 @@ const store = new Store({
 
         changeRecommend(state,payload){
             state.recommend.push(payload)
+        },
+
+        // 修改数量
+        changeQty(state,{qty,goods_id}){
+            state.cartlist.forEach(goods=>{
+                if(goods.goods_id === goods_id){
+                    goods.qty = qty;
+                }
+            })
+        },
+
+        // 删除商品
+        removeGoods(state,goods_id){
+            for(var i=0;i<state.cartlist.length;i++){
+                if(state.cartlist[i].goods_id === goods_id){
+                    break;
+                }
+            }
+            state.cartlist.splice(i,1);
         }
     },
 
@@ -61,7 +63,7 @@ const store = new Store({
         getRecommend(context, payload){
             // context ： 类似store的对象
 
-            // axios.get(url,{
+            // this._vm.$axios.get(url,{
             //     params:{
             //         qty:payload
             //     }

@@ -20,6 +20,14 @@ module.exports = {
         open:true, //自动打开浏览器
     },
 
+    resolve:{
+        alias:{
+            page:path.resolve('src/pages'),
+            '@':path.resolve('src')
+        },
+        extensions:['.js','.json','.vue']
+    },
+
     // 配置Loader加载器（某一类文件的编译规则）
     module:{
         rules:[

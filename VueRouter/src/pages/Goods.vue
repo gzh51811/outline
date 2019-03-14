@@ -1,7 +1,9 @@
 <template>
     <div>
-        商品详情
-        <img :src="goodsinfo.goods_image"/>
+        <h1>{{goodsinfo.goods_title}}</h1>
+        <img :src="goodsinfo.goods_pic_url"/>
+        <p class="price">原价：<del>{{goodsinfo.oprice}}</del></p>
+        <p class="price">现价：<span>{{goodsinfo.sprice}}</span></p>
         <el-button type="success" @click="add2cart">添加到购物车</el-button>
     </div>
 </template>
@@ -25,18 +27,26 @@ export default {
 
             console.log(this.$route)
 
-            let {data:{datas}} = await this.$axios.get('https://www.nanshig.com/mobile/index.php',{
+            // let {data:{datas}} = await this.$axios.get('https://www.nanshig.com/mobile/index.php',{
+            //     params: {
+            //         act:'goods',
+            //         op:'goods_detail',
+            //         goods_id,
+            //         key:''
+            //     }
+            // })
+            let {data:{skudata:{info}}} = await this.$axios.get('https://webservice.juanpi.com/api/getMemberAboutInfo',{
                 params: {
-                    act:'goods',
-                    op:'goods_detail',
                     goods_id,
-                    key:''
+                    // sa_id:20729562,
+                    // is_pt_goods:0,
+                    // req_coupons_id:119100459
                 }
             })
 
-            console.log(datas)
+            console.log(info)
 
-            this.goodsinfo = datas
+            this.goodsinfo = info
         },
         add2cart(){
             // this.$store.state.cartlist.push({
@@ -45,21 +55,34 @@ export default {
             //     qty:1
             // })
 
-            this.$store.commit('addCartList',{
-                name:'node7',
-                price:99,
-                qty:1
-            })
+            let {goods_pic_url,goods_title,oprice,sprice} = this.goodsinfo
+            let {id:goods_id} = this.$route.params;
+
+            // 获取购物车商品信息
+            let currentGoods = this.$store.state.cartlist.filter(item=>item.goods_id===goods_id)[0]
+            
+            // 判断当前商品是否添加过到购物车
+            if(currentGoods){
+                // 已添加：数量+1
+                this.$store.commit('changeQty',{goods_id,qty:currentGoods.qty+1})
+            }else{
+                // 未添加过：添加商品
+                this.$store.commit('addCartList',{
+                    goods_pic_url,
+                    goods_title,
+                    oprice,
+                    sprice,
+                    goods_id,
+                    qty:1
+                })
+            }
         }
     },
-    mounted(){console.log('mounted')
+    mounted(){
         this.getData()
 
-        this.timer = setInterval(()=>{
-            console.log('interval')
-        },2000);
-
-        this.$store.dispatch('getRecommend',10);
+        console.log(this.$store.state.cartlist)
+        // this.$store.dispatch('getRecommend',10);
     },
     // beforeRouteUpdate(to,from){
     //     console.log('beforeRouteUpdate',to,from)

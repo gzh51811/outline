@@ -6,12 +6,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Home from '../pages/Home.vue'
-import List from '../pages/List.vue'
-import Goods from '../pages/Goods.vue'
-import Cart from '../pages/Cart.vue'
-import NotFound from '../pages/NotFound.vue'
-import Login from '../pages/Login.vue'
+import Home from 'page/Home'
+import List from 'page/List'
+import Goods from 'page/Goods'
+import Cart from 'page/Cart'
+import NotFound from 'page/NotFound'
+import Login from 'page/Login'
 
 Vue.use(VueRouter);
 
