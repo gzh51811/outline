@@ -4,7 +4,12 @@
             <el-menu-item :index="idx+''" v-for="(nav,idx) in navs" :key="nav.name" 
             @click="goto(nav)">
                 <!-- <router-link :to="{name:nav.name}" active-class="active" tag="span">{{nav.text}}</router-link> -->
+                <el-badge :value="goodsQty" class="item" v-if="nav.name=='Cart'">
                 {{nav.text}}
+                </el-badge>
+                <span v-else>
+                    {{nav.text}}
+                </span>
             </el-menu-item>
         </el-menu>
         <router-view></router-view>
@@ -48,6 +53,11 @@ export default {
                 name:'Cart'
             }],
             activeIndex:0
+        }
+    },
+    computed:{
+        goodsQty(){
+            return this.$store.state.cartlist.length;
         }
     },
     methods:{
