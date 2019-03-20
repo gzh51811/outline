@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <img :src="imgurl"/>
   </div>
 </template>
 
@@ -10,8 +11,18 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
+  data(){
+    return {
+      imgurl:''
+    }
+  },
   components: {
     HelloWorld
+  },
+  created(){
+    let imgurl = 'assets/logo.png';
+
+    this.imgurl = require('./'+imgurl)
   }
 }
 </script>

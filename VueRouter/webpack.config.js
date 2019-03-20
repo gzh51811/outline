@@ -1,6 +1,8 @@
 // 这里的代码在nodejs环境下执行
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 
 module.exports = {
@@ -10,7 +12,8 @@ module.exports = {
     // 出口：打包后文件保存在哪个目录
     output:{
         path:path.resolve(__dirname,'./dist'),
-        filename:'js/[name]-bundle[hash].js'
+        filename:'js/[name]-bundle[hash].js',
+        publicPath:'/fe/'
     },
 
     // 测试服务器:在内存中运行
@@ -99,10 +102,16 @@ module.exports = {
 
     // 插件Plugin
     plugins:[
+        new CleanWebpackPlugin(),
+        
         // 依据html模板生成一个自动引用你打包后的文件（js或css）的新的html页面
         new HtmlWebpackPlugin({
             template:'./src/index.template.html'
         }),
+
+        new CopyWebpackPlugin([
+            {from:'./src/assets/img',to:'assets/img'}
+        ]),
 
         // Vue-loader 15.x之后的版本都需要伴随 VueLoaderPlugin， 否则报错
         new VueLoaderPlugin(),

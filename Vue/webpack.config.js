@@ -18,6 +18,24 @@ module.exports = {
         contentBase:'./app',
         port:10086,
         open:true, //自动打开浏览器
+
+        // express + http-proxy-middleware
+        proxy:{
+            '/jxapi/*':{
+                "target": "https://m.jiuxian.com", //目标服务器
+                "changeOrigin": true,
+                "pathRewrite": {
+                    "^/jxapi" : "/"
+                }
+            },
+            '/api':{
+                "target": "http://localhost:1811", //目标服务器
+                "changeOrigin": true,
+                "pathRewrite": {
+                    "^/api" : "/api"
+                }
+            }
+        }
     },
 
     // 配置Loader加载器（某一类文件的编译规则）
@@ -46,7 +64,7 @@ module.exports = {
 				use:{
 					loader:'url-loader',
 					options:{
-						limit:10000,
+						limit:10000,//base64
 						name: 'img/[name].[hash:8].[ext]'
 					}
 				}

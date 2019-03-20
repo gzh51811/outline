@@ -6,13 +6,21 @@
         <img :src="goods.pic_url">
       </el-carousel-item>
     </el-carousel>
+
+    <img :src="goods.imgurl"/>
+    <img src="../assets/img/wenjing.jpg"/>
+    <img :src="imgurl"/>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      recommend: []
+      recommend: [],
+      imgurl:'',
+      goods:{
+        imgurl:'/assets/img/jingjing.png'
+      }
     };
   },
   methods: {
@@ -40,6 +48,10 @@ export default {
   created() {
     this.getCommend();
     // this.$store.dispatch("getRecommend", 3);
+    
+
+    let imgurl = require('../assets/img/zhezhe.jpg');
+    this.imgurl = imgurl;
   }
 };
 </script>

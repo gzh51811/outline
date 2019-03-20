@@ -42,12 +42,29 @@ import todoList from './components/todoList.vue';
 import myButton from './components/myButton.vue';
 import dynamicComponent from './components/dynamicComponent.vue';
 import myTransition from './components/transition.vue';
+
+import axios from 'axios';
 export default {
     components:{
         todoList,
         myButton,
         dynamicComponent,
         myTransition
+    },
+    created(){
+        // https://m.jiuxian.com/m_v1/promote/qgajax.do?t=1552965542399&pagenum=1&tabnum=1
+        
+        // /jxapi/m_v1/promote/qgajax.do -> https://m.jiuxian.com/jxapi/m_v1/promote/qgajax.do -> https://m.jiuxian.com/m_v1/promote/qgajax.do
+        axios.get('/jxapi/m_v1/promote/qgajax.do',{
+            params:{
+                t:1552965542399,
+                pagenum:1,
+                tabnum:1
+            }
+        }).then(res=>{
+            console.log('result:',res)
+        })
+        // axios.get('/api/getdata')
     }
 }
 </script>
