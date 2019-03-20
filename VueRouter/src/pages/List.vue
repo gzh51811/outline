@@ -33,8 +33,8 @@ export default {
   },
   created() {
     // axios.get('https://www.nanshig.com/mobile/index.php?act=goods&op=goods_list&keyword=&page=10&curpage=1')
-    this.$axios
-      .get("https://www.nanshig.com/mobile/index.php", {
+    this.$nanshig
+      .get("/mobile/index.php", {
         params: {
           act: "goods",
           op: "goods_list",
@@ -51,6 +51,7 @@ export default {
         console.log(data.datas.goods_list)
       });
   }
+
 };
 </script>
 <style lang="scss">

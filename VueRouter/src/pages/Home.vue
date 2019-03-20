@@ -29,7 +29,7 @@ export default {
         data: {
           data: { goods }
         }
-      } = await this.$axios.get("https://webservice.juanpi.com/api/getGoods", {
+      } = await this.$juanpi.get("/api/getGoods", {
         params: {
           page: 1,
           zy_ids: "p8_c4_l4_0",

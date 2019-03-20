@@ -30,7 +30,24 @@ import axios from "axios";
 // ElementUI以插件的形式来扩展Vue的功能
 Vue.use(ElementUI);
 
+// 创建一个axios实例
+var juanpi = axios.create({
+  baseURL: 'https://webservice.juanpi.com',
+  params:{
+      test:'test123'
+  }
+});
+juanpi.defaults.headers.common['Authorization'] = 'token123';
+
+
+var nanshig = axios.create({
+  baseURL: 'https://www.nanshig.com'
+});
+
+
 // 把axios设置到Vue的原型对象上，方便在任意组件中使用
+Vue.prototype.$nanshig = nanshig;
+Vue.prototype.$juanpi = juanpi;
 Vue.prototype.$axios = axios;
 
 export default {
