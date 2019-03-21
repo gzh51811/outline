@@ -27,3 +27,52 @@
 * Vue的组件定义
     * 全局：Vue.component()
     * components
+
+## React组件化开发
+* 类型
+    * 函数组件（UI组件、无状态组件、受控组件）
+        * 必须有返回值
+        * props参数
+    * 类组件（容器组件、状态组件、非受控组件）
+        * 必须有render方法
+        * state
+        * props属性
+* 限制
+    * 大写字母开头
+    * 只能有一个外层标签
+* 组件通讯
+    * props传递
+
+
+## 事件绑定
+* 事件名必须使用驼峰写法：onClick,onKeyDown
+* event
+    handlerClick(a,b,event){
+        
+    }
+    <div onClick={this.handlerClick.bind(this,10,20)}>
+
+    <button onClick={e=>this.clickHandler(e,10)}>按钮</button>
+    <button onClick={(e)=>{return this.clickHandler()}}>按钮</button>
+* this指向
+    * 函数是否通过new调用？
+        * 是：指向实例对象
+        * 否
+            * 函数是否使用dot进行调用？
+                * 是:指向dot前面的对象
+                * 否: this指向window
+
+        function show(){
+            cocnsole.log(this)
+        }
+
+        show();//window
+        btn.onclick = show;//btn
+
+        var obj = {}
+        obj.show = show;
+        obj.show();//obj
+
+        new show();
+
+        show.bind()
