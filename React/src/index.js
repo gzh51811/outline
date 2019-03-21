@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import Comment from './components/Comment'
+
 let ele = React.createElement(
     'div',
     {className:'container',id:'box'},
@@ -11,7 +13,9 @@ let ele = React.createElement(
     )
 );
 
-let namelist = ['laoxie','jingjing','lemon','tingting'];
+console.log('createElement:',ele);
+
+let namelist = ['laoxie666','jingjing','lemon','tingting'];
 
 let username = 'laoxie';
 
@@ -29,11 +33,13 @@ let element = (<div className="container" id="box">
     <input type="text"/>
 </div>)
 
+console.log('JSX:',element)
+
 // JSX -- Babel --> JS
 // JSX 为React.createElement()语法糖
 // JSX ： 把html代码与js代码写在一起
 ReactDOM.render(
-    element
+    <Comment/>
     ,
     document.querySelector('#app')
 )

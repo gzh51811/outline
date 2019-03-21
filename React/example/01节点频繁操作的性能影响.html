@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">0</button>
+    <script>
+        //测试以下节点操作代码花费时间，并尝试优化它
+        console.time('mytime')
+        // for(let i=0;i<10000;i++){
+        //     let btn = document.querySelector('.btn');
+        //     let num = btn.innerText;
+        //     btn.innerText = ++num;
+        // }
+
+        // 优化
+        let btn = document.querySelector('.btn')
+        let vNode = {
+            el:btn,
+            num:btn.innerText
+        }
+        for(let i=0;i<10000;i++){
+            vNode.num++
+        }
+        vNode.el.innerText = vNode.num
+        console.timeEnd('mytime')
+    </script>
+</body>
+</html>
