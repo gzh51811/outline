@@ -3,6 +3,7 @@ import {render} from 'react-dom';
 
 import Comment from './components/Comment'
 import TodoList from './components/TodoList'
+import Lifecycle from './components/Lifecycle'
 
 let ele = React.createElement(
     'div',
@@ -43,6 +44,7 @@ render(
     <div>
         <Comment/>
         <TodoList/>
+        <Lifecycle data="jingjing"/>
     </div>
     ,
     document.querySelector('#app')

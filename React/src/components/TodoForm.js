@@ -1,8 +1,8 @@
 import React,{Component} from 'react';
-
+import TodoButton from './TodoButton';
 
 class TodoForm extends Component{
-    // constructor(){
+    // constructor(props,context){
     //     super();
 
     //     this.state = {
@@ -48,7 +48,8 @@ class TodoForm extends Component{
         return (
             <div className="todo-list">
                 <input type="text" value={msg} onChange={this.handleChange.bind(this)} ref="msg"/>
-                <button onClick={this.handleClick.bind(this)}>添加</button>
+                {/* <button onClick={this.handleClick.bind(this)}>添加</button> */}
+                <TodoButton handleClick={this.handleClick.bind(this)}>添加</TodoButton>
             </div>
         )
     }

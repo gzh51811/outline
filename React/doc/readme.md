@@ -89,3 +89,19 @@
         * 
     * 强制刷新
         * forceUpdate()
+
+
+* Vue与React的生命周期函数
+    Vue                         React
+    * Creating                  constructor() 初始化
+        beforeCreate()
+        created()
+    * Mounting
+        beforeMount()           componentWillMount()
+        mounted()               componentDidMount()
+    * Updating
+        beforeUpdate()          componentWillUpdate()
+        updated()               componentDidUpdate()
+    * Unmounting
+        beforeDestroy()
+        destroyed()
