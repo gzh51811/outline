@@ -1,7 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {render} from 'react-dom';
 
 import Comment from './components/Comment'
+import TodoList from './components/TodoList'
 
 let ele = React.createElement(
     'div',
@@ -38,8 +39,11 @@ console.log('JSX:',element)
 // JSX -- Babel --> JS
 // JSX 为React.createElement()语法糖
 // JSX ： 把html代码与js代码写在一起
-ReactDOM.render(
-    <Comment/>
+render(
+    <div>
+        <Comment/>
+        <TodoList/>
+    </div>
     ,
     document.querySelector('#app')
 )

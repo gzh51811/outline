@@ -76,3 +76,16 @@
         new show();
 
         show.bind()
+
+## day5-5
+* React组件更新（重渲染）
+    * state有修改
+        * 如何修改state：
+            * this.setState({a:10}) ;//this.state.a = 100
+    * props有修改
+        * React为单向数据流
+
+    * state 和props的区别
+        * 
+    * 强制刷新
+        * forceUpdate()
