@@ -169,3 +169,24 @@ RR4
 * react-router-native
 
 react  <-> react-native
+
+### 高阶组件
+* 就是一个函数，用于包装
+
+### 编程式导航与声明式导航
+有些场景下只能使用编程式导航
+
+* history.push('/home')         <Link to="/home">
+* history.push({
+      pathname: '/goods',
+      search: '?id=123456',
+      state: { price: 998 }
+    })
+
+    <Link to={{
+      pathname: '/pay',
+      search: '?id=123456',
+      state: { price: 998 }
+    }}>
+
+* history.replace('/home')      <Link to="/home" replace>
