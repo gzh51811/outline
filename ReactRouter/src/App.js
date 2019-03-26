@@ -5,8 +5,19 @@ import List from './pages/List';
 import Goods from './pages/Goods';
 import Cart from './pages/Cart';
 
+// 全部加载
+// import { Menu, Icon } from 'antd';
+// import "antd/dist/antd.css";
+
+// 按需加载antd
+// import Menu from 'antd/lib/menu';
+// import 'antd/lib/menu/style';
+// import Icon from 'antd/lib/icon';
+// import 'antd/lib/icon/style';
+
+// babel-plugin-import
 import { Menu, Icon } from 'antd';
-import "antd/dist/antd.css";
+
 
 import { Route, Redirect, Switch, NavLink,withRouter } from 'react-router-dom';
 
@@ -79,7 +90,9 @@ class App extends Component {
                 <Switch>
                     <Route path="/home" component={Home} />
                     <Route path="/list" component={List} />
-                    <Route path="/goods" component={Goods} />
+                    
+                    {/* 动态路由 */}
+                    <Route path="/goods/:id" component={Goods} />
                     <Route path="/cart" component={Cart} />
                     {/* <Route path="/" render={()=><div>我的首页</div>} exact/> */}
                     <Redirect from="/" to="/home" />{/* 404 */}

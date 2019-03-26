@@ -8,6 +8,8 @@
             <p class="price">价格：<span>{{goods.goods_price}}</span></p>
         </div>
     </el-card>
+
+    <router-view></router-view>
   </div>
 </template>
 <script>

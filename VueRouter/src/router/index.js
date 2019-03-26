@@ -31,7 +31,21 @@ let router = new VueRouter({
         {
             name:'List',
             path:'/list',
-            component:List
+            component:List,
+
+            // 嵌套路由
+            children:[
+                // {
+                //     name:'Phone',
+                //     path:'phone',//'/list/phone'
+                //     component:Phone
+                // },
+                // {
+                //     name:'Computer',
+                //     path:'computer',//'/list/computer'
+                //     component:Computer
+                // }
+            ]
         },
         {
             name:'Goods',

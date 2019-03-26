@@ -44,7 +44,7 @@ module.exports = {
                         presets: [
                             ["@babel/env",{
                                 targets:{
-                                    browsers:'last 2 versions'
+                                    browsers:'chrome >= 62'
                                 }
                             }],
                             '@babel/react',
@@ -54,6 +54,11 @@ module.exports = {
                             '@babel/plugin-proposal-class-properties',
                             // '@babel/plugin-proposal-async-generator-functions',
                             // '@babel/plugin-transform-async-to-generator',
+                            ['import',{
+                                "libraryName": "antd",
+                                "libraryDirectory": "es",
+                                "style": "css" // `style: true` 会加载 less 文件
+                            }]
                         ]
                     }
                 }

@@ -189,21 +189,21 @@ props.match是实现嵌套路由的对象，当我们在某个页面跳转到它
 * match.path：是指写在 `<Route/>` 中的 path 参数；
 * match.url：是指在浏览器中显示的真实 URL。
 
->match.path 可用于嵌套组件中的 `<Route/>`，而 match.url 可用于嵌套组件中的 `<Link/>`
+>match.path 可用于嵌套组件中的 `<Route/>`，而 match.url 可用于嵌套组件中的 `<NavLink/>`
 
 ```html
   <div className="subnav">
-    <NavLink to={props.match.path + "/computer"} activeClassName="active">电脑</NavLink>
-    <NavLink to={props.match.path + "/pad"} activeClassName="active">平板</NavLink>
-    <NavLink to={props.match.path + "/acc"} activeClassName="active">配件</NavLink>
+    <NavLink to={props.match.url + "/computer"} activeClassName="active">电脑</NavLink>
+    <NavLink to={props.match.url + "/pad"} activeClassName="active">平板</NavLink>
+    <NavLink to={props.match.url + "/acc"} activeClassName="active">配件</NavLink>
   </div>
 
   <Switch>
-    <Route path={props.match.url + "/phone"} component={Phone}/>
-    <Route path={props.match.url + "/computer"} component={Computer}/>
-    <Redirect from={props.match.url} to={props.match.path + "/computer"} exact />
-    <Route path={props.match.url + "/pad"} component={Pad}/>
-    <Route path={props.match.url + "/acc"} component={Acc}/>
+    <Route path={props.match.path + "/phone"} component={Phone}/>
+    <Route path={props.match.path + "/computer"} component={Computer}/>
+    <Redirect from={props.match.path} to={props.match.path + "/computer"} exact />
+    <Route path={props.match.path + "/pad"} component={Pad}/>
+    <Route path={props.match.path + "/acc"} component={Acc}/>
   </Switch>
 ```
 
