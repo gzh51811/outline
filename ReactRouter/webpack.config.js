@@ -42,10 +42,19 @@ module.exports = {
                     // babel的参数
                     options: {
                         presets: [
+                            ["@babel/env",{
+                                targets:{
+                                    browsers:'last 2 versions'
+                                }
+                            }],
                             '@babel/react',
-                            '@babel/env'
                         ],
-                        plugins:['@babel/plugin-proposal-class-properties']
+                        plugins:[
+                            ['@babel/plugin-proposal-decorators',{ legacy: true }],
+                            '@babel/plugin-proposal-class-properties',
+                            // '@babel/plugin-proposal-async-generator-functions',
+                            // '@babel/plugin-transform-async-to-generator',
+                        ]
                     }
                 }
             },

@@ -190,3 +190,24 @@ react  <-> react-native
     }}>
 
 * history.replace('/home')      <Link to="/home" replace>
+
+## day6-2
+
+### React-Router4（SPA VS MPA）
+
+* 根据浏览器url地址（hash or history state）不同显示相应的内容
+    * 路由原理
+        * hash
+            * hashchange事件
+        * history/browser
+            * pushState()/replaceState()
+* 一切皆组件 just component
+
+* 高阶组件HOC（High Order Component）
+> 就是一个纯函数，接收一个组件，返回一个新的组件
+> 纯函数：不会对传入的参数进行修改，不会产生副作用
+
+withRouter()
+withAxios()
+
+* ES7 Decorator 装饰器
