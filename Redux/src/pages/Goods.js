@@ -5,7 +5,8 @@ import url from 'url';
 import withAxios from '../hoc/withAxios';
 
 import { Button, Icon } from 'antd';
-import store from '../store';
+
+import {connect} from 'react-redux';
 
 class Goods extends Component{
     constructor(){
@@ -40,19 +41,40 @@ class Goods extends Component{
         
     }
 
-    add2cart(){
-        store.dispatch({type:'add_to_cart',payload:{goods_id:123}})
-    }
+    // add2cart(){
+    //     // store.dispatch({type:'add_to_cart',payload:{goods_id:123}})
+    // }
 
     render(){
+        console.log('goods:',this);
         let {info} = this.state;
+        let {add2cart} = this.props;
         return <div className="goods" style={{padding:'15px'}}>
             <img src={info.goods_image}/>
             <h4>{info.goods_name}</h4>
             <p className="price"><del>{info.goods_marketprice}</del> <span>{info.goods_price}</span></p>
-            <Button type="primary" size="large" onClick={this.add2cart}><Icon type="shopping-cart"/>加入购物车</Button>
+            <Button type="primary" size="large" onClick={add2cart.bind(this,info)}><Icon type="shopping-cart"/>加入购物车</Button>
         </div>
     }
 }
 
-export default withAxios(Goods);
+Goods = withAxios(Goods)
+
+Goods = connect((state)=>{
+    return {}
+},(dispatch)=>{
+    return {
+        add2cart(goods){
+            // 判断商品是否第一次添加
+            // if(第一次){
+
+                dispatch({type:'add_to_cart',payload:goods})
+            // }else{
+
+                dispatch({type:'change_qty',payload:{id:goods.goods_id,qty:'?'}})
+            // }
+        }
+    }
+})(Goods)
+
+export default Goods

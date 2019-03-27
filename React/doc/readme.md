@@ -98,3 +98,144 @@ withRouter()
 withAxios()
 
 * ES7 Decorator 装饰器
+
+
+## day6-3
+* json Vs xml
+
+    {
+        username:'jingjing',
+        password:123456,
+        gender:'女'
+    }
+
+    <user>
+        <username>jingjing</username>
+        <password>123456</password>
+        <gender>女</gender>
+    </user>
+
+    svg
+        * 图标
+        * 动画
+
+* just component
+    * 类型
+        * <HashRouter/>
+            * hashchange
+        * <BrowserRouter/>
+            * popstate
+    * <Route/>
+    * <Redirect/>
+    * <Switch>
+    * 导航
+        * 声明式
+            * <Link/>
+            * <NavLink/>
+        * 编程式 
+            * history
+                * push()
+                * replace()
+            * 获取history
+                * withRouter()  HOC
+                * <Route/>
+
+    * history,location,match
+
+    // webpack
+    import {Route,Switch} from 'react-router-dom'
+    import Home from './pages/Home'
+
+
+    cjs,umd,amd,es
+
+### Redux
+
+    Vuex
+
+
+    React  View
+    React-Router    
+    Redux'
+
+注意：React与Redux为两个独立的产品，
+
+* 核心概念
+    * Store
+        * 单一数据来源原则：要求一个应用只能有一个store
+        * store中的数据可以在任意位置访问
+        * 修改Store中的数据只能通过特定的方式（reducer）
+        * 创建：createStore()
+            * 返回一个对象{getState()}
+    * State
+        state为数据状态（快照，即数据在某个时间点的状态），State改变则View改变
+
+        * 获取数据
+            store.getState()
+        * 修改数据(唯一修改方式)
+            * store.dispatch(action)  / Vue this.$store.commit()
+    * Action
+        Action用于定义如何改变state，是用户改变 State 的唯一方式
+        * 格式：{type:'UPDATE_CART',payload}
+
+    * Reducer
+        Reducer 必须是一个纯函数，状态更新逻辑(如何修改state)，并返回新的state
+
+* 使用redux
+    * import {createStore} from 'redux';
+
+    * 创建Store
+        let store = createStore(reducer)
+
+    * 获取state
+        store.getState()
+    * 修改state
+        store.dispatch({type:'remove_from_cart',{id:10}})
+
+    * 定义修改逻辑：reducer
+        let initState = {
+            goodslist:[{id:10},{id:5}]
+        }
+        let reducer = (state=initState,action)=>{
+            //根据action修改state
+
+            switch(action.type){
+                case 'remove_from_cart':
+                    return {
+                        ...state
+                        goodslist:state.goodslist.filter(item=>item.id!=action.id)
+                    }
+                    break;
+                case 'change_qty':
+                    ...
+
+                 default:
+                    return state;
+            }
+
+           
+        }
+
+
+### context
+
+1. 定义： React.createContext([defautlValue])
+    `let MyContext = React.createContext('laoxie')`
+2. 使用：
+    * 传输：Provider
+        ```html
+            <MyContext.Provider value="jingjing">
+                <Home>
+            <MyContext.Provider>
+        ```
+    * 接收：Consumer
+        > 在子组件中接收：
+        ```html
+            <MyContext.Consumer>
+                {
+                    username=>{
+                        return <button>{username}</button>
+                    }
+                }
+            </MyContext.Consumer>
+        ```

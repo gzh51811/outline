@@ -18,10 +18,14 @@ import Cart from './pages/Cart';
 // babel-plugin-import
 import { Menu, Icon,Badge } from 'antd';
 
-import store from './store';
+// import store from './store';
 
+// console.log(store)
 
 import { Route, Redirect, Switch, NavLink,withRouter } from 'react-router-dom';
+
+// 引入connect高阶组件
+import {connect} from 'react-redux'
 
 class App extends Component {
     constructor() {
@@ -72,6 +76,9 @@ class App extends Component {
     }
 
     render() {
+
+        console.log('App',this);
+        let {cartlen} = this.props
         return (
             <div className="container">
                 {/* <nav>
@@ -89,7 +96,7 @@ class App extends Component {
                         {
                             item.name=='Cart' 
                             ? 
-                            <Badge count={store.getState().goodslist.length}><Icon type={item.icon} />{item.text}</Badge>
+                            <Badge count={cartlen}><Icon type={item.icon} />{item.text}</Badge>
                             :
                             <>
                             <Icon type={item.icon} />{item.text}
@@ -116,5 +123,13 @@ class App extends Component {
 }
 
 App = withRouter(App);
+
+const mapStateToProps = (state)=>{
+    return {
+        cartlen:state.goodslist.length
+    }
+}
+
+App = connect(mapStateToProps)(App);
 
 export default App;
