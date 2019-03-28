@@ -1,38 +1,26 @@
 import React, { Component } from 'react';
 
 import { List,InputNumber } from 'antd';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 
-import store from '../store';
-
-
+import cartAction from '../actions/cartAction';
 
 class Cart extends Component{
     constructor(){
         super();
         this.state = {
-            ...store.getState()
+            
         }
     }
     componentDidMount(){
        
         
-        // 监听store的修改 -> 重新渲染组件
-        store.subscribe(()=>{
-            // console.log('jt:',store.getState())
-
-            this.setState({
-                ...store.getState()
-            })
-        })
+        
     }
     render(){
-        let handleChangeQty = (id,qty)=>{
-            console.log(qty,id)
-    
-            store.dispatch({type:'change_qty',payload:{qty,id}})
-        }
-
-        let {goodslist} = this.state;
+        console.log('cart:',this)
+        let {goodslist,changeqty} = this.props;
 
         return <div className="home">
             <List
@@ -45,7 +33,7 @@ class Cart extends Component{
                                 title={goods.goods_name}
                                 description={<div>
                                     <p className="price"><span>{goods.goods_price}</span></p>
-                                    <InputNumber size="small" min={1} max={5} value={goods.qty} onChange={handleChangeQty.bind(this,goods.goods_id)}/>
+                                    <InputNumber size="small" min={1} max={5} value={goods.qty} onChange={changeqty.bind(this,goods.goods_id)}/>
                                 </div>}
                             />
                         </List.Item>
@@ -55,6 +43,13 @@ class Cart extends Component{
         </div>
     }
 }
+
+Cart = connect(
+    state=>({
+        goodslist:state.goodslist
+    }),
+    dispatch=>bindActionCreators(cartAction,dispatch)
+)(Cart)
 
 
 export default Cart;

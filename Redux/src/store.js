@@ -1,4 +1,5 @@
 import {createStore} from 'redux';
+import {ADD_TO_CART,REMOVE_FROM_CART,CHANGE_QTY} from './actions/cartAction'
 
 // 初始状态
 let initState = {
@@ -27,21 +28,21 @@ let reducer = (state=initState,{type,payload})=>{
     // 返回值：返回新的state
     switch(type){
         // 添加商品到购物车
-        case 'add_to_cart':
+        case ADD_TO_CART:
             return {
                 ...state,
                 goodslist:[...state.goodslist,payload]
             }
 
         // 删除购物车商品
-        case 'remove_from_cart':
+        case REMOVE_FROM_CART:
             return {
                 ...state,
                 goodslist:state.goodslist.filter(item=>item.id!=payload.id)
             }
         
         // 修改购物车商品数量
-        case 'change_qty':
+        case CHANGE_QTY:
             return {
                 ...state,
                 goodslist:state.goodslist.map(goods=>{

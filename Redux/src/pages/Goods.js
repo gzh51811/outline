@@ -8,6 +8,9 @@ import { Button, Icon } from 'antd';
 
 import {connect} from 'react-redux';
 
+// action creator
+import cartAction from '../actions/cartAction';
+
 class Goods extends Component{
     constructor(){
         super();
@@ -68,10 +71,10 @@ Goods = connect((state)=>{
             // 判断商品是否第一次添加
             // if(第一次){
 
-                dispatch({type:'add_to_cart',payload:goods})
+                dispatch(cartAction.add(goods))
             // }else{
 
-                dispatch({type:'change_qty',payload:{id:goods.goods_id,qty:'?'}})
+                // dispatch(cartAction.changeqty(goods.goods_id,qty))
             // }
         }
     }
