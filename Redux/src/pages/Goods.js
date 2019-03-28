@@ -51,31 +51,34 @@ class Goods extends Component{
     render(){
         console.log('goods:',this);
         let {info} = this.state;
-        let {add2cart} = this.props;
+        let {add2cart,inCart} = this.props;
         return <div className="goods" style={{padding:'15px'}}>
             <img src={info.goods_image}/>
             <h4>{info.goods_name}</h4>
             <p className="price"><del>{info.goods_marketprice}</del> <span>{info.goods_price}</span></p>
-            <Button type="primary" size="large" onClick={add2cart.bind(this,info)}><Icon type="shopping-cart"/>加入购物车</Button>
+            <Button type="primary" size="large" onClick={add2cart.bind(this,info,inCart)}><Icon type="shopping-cart"/>加入购物车</Button>
         </div>
     }
 }
 
 Goods = withAxios(Goods)
 
-Goods = connect((state)=>{
-    return {}
-},(dispatch)=>{
+Goods = connect((state,ownProps)=>{
     return {
-        add2cart(goods){
+        inCart:state.cart.goodslist.filter(goods=>goods.goods_id==ownProps.match.params.id)[0]
+    }
+},(dispatch,ownProps)=>{
+
+    return {
+        add2cart(goods,inCart){
             // 判断商品是否第一次添加
-            // if(第一次){
-
+            if(inCart){
+                dispatch(cartAction.changeqty(goods.goods_id,inCart.qty+1))
+            }else{
+                goods.qty = 1;
                 dispatch(cartAction.add(goods))
-            // }else{
 
-                // dispatch(cartAction.changeqty(goods.goods_id,qty))
-            // }
+            }
         }
     }
 })(Goods)

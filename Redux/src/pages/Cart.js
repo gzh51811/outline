@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { List,InputNumber } from 'antd';
+import { List,InputNumber,Icon,Button,Row,Col } from 'antd';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 
@@ -20,14 +20,14 @@ class Cart extends Component{
     }
     render(){
         console.log('cart:',this)
-        let {goodslist,changeqty} = this.props;
+        let {goodslist,total,changeqty,remove,clear} = this.props;
 
-        return <div className="home">
+        return <div className="home" style={{padding:'15px'}}>
             <List
                 itemLayout="horizontal">
                 {
                     goodslist.map(goods => {
-                        return <List.Item key={goods.goods_id}>
+                        return <List.Item key={goods.goods_id} actions={[<Icon type="close" onClick={remove.bind(this,goods.goods_id)}/>]}>
                             <List.Item.Meta
                                 avatar={<img src={goods.goods_image} style={{ width: '120px', height: '120px' }} />}
                                 title={goods.goods_name}
@@ -40,13 +40,22 @@ class Cart extends Component{
                     })
                 }
             </List>
+            <Row gutter={10}>
+                <Col span={12}>
+                    <Button onClick={clear}>清空购物车</Button>
+                </Col>
+                <Col span={12} style={{textAlign:'right'}}>
+                    总价：<span style={{color:'#f00'}}>￥{total.toFixed(2)}</span>
+                </Col>
+            </Row>
         </div>
     }
 }
 
 Cart = connect(
     state=>({
-        goodslist:state.goodslist
+        goodslist:state.cart.goodslist,
+        total:state.cart.goodslist.reduce((prev,current)=>prev+current.goods_price*current.qty,0)
     }),
     dispatch=>bindActionCreators(cartAction,dispatch)
 )(Cart)

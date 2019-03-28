@@ -126,7 +126,7 @@ App = withRouter(App);
 
 const mapStateToProps = (state)=>{
     return {
-        cartlen:state.goodslist.length
+        cartlen:state.cart.goodslist.length
     }
 }
 
