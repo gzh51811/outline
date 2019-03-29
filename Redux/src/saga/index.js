@@ -30,10 +30,10 @@ function* watchAddToCar(){
     yield takeLatest('ADD_TO_CART_ASYNC',addToCar);
 }
 function* watchGetData(){
-    yield takeLatest('ADD_TO_CART_ASYNC',addToCar);
+    yield takeLatest('ADD_TO_CART_A',addToCar);
 }
 
 
-export default function*(){
+export default function* rooSaga(){
     yield all([watchAddToCar(),watchGetData()])
 }
