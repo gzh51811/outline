@@ -34,3 +34,34 @@
 * 5+runtime
     * 在window对象中提供plus属性
         * window.plus.camera
+
+
+## day7-2
+* 复习
+    ElementUI.install = (Vue)=>{
+        componentName = 'button,step,table'.split(',')
+        componentName.forEach(tagName=>{
+            Vue.component('ele-'+tagName,{
+
+            })
+
+        })
+        ...
+    }
+
+    import ElementUI from 'element-ui';
+    Vue.use(ElementUI);
+
+    <el-button></el-button>
+    Vuex  vex
+* 混合开发HybridApp
+    * NativeAPP
+    * WebApp
+    * HybridApp
+        * Native主导
+        * h5主导
+            * 第三方平台
+                * DCloud
+                    * HBuilder
+                    * 5+Runtime
+            * 本地环境

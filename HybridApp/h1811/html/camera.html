@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>摄像头相关</title>
+		<script src="../js/mui.min.js"></script>
+		<link href="../css/mui.min.css" rel="stylesheet"/>
+		<style>
+			header{position:relative;padding:5px 0;}
+			header h1{font-size:20px;text-align: center;margin:0;}
+			header .mui-icon{position: absolute;top:7px;left:0;font-size:20px;}
+		</style>
+	</head>
+	<body>
+		<header>
+			<span class="mui-icon mui-icon-back" id="btnBack">返回</span>
+			<h1>摄像头相关</h1>
+		</header>
+		<main>
+			<button type="button" class="mui-btn mui-btn-royal mui-btn-outlined" id="btn">拍照</button> 
+			<div class="mui-content">
+			<div class="mui-row" id="imglist">
+			    <div class="mui-col-sm-3">
+			    </div>
+			</div>
+			<button>录像</button>
+		</main>
+		<script>
+			document.addEventListener( "plusready", plusReady,false);
+			
+			function plusReady(){
+				let btnBack = document.querySelector('#btnBack');
+				let currentWV = plus.webview.currentWebview();
+				btnBack.onclick = ()=>{
+					
+					plus.webview.close(currentWV,'slide-out-right')
+				}
+				
+				//拍照
+				let cmr = plus.camera.getCamera(2);
+				console.log(cmr)
+				
+				btn.onclick = ()=>{
+					// 拍照
+					cmr.captureImage((path)=>{
+						//得到一个相对路径
+						//拍照成功回调
+						
+						//把相对路径转成平台绝对路径
+						let imgurl = plus.io.convertLocalFileSystemURL( path );
+						console.log(path,imgurl)
+						
+						let li = document.createElement('div');
+						li.className = 'mui-col-sm-3'
+						let img  = document.createElement('img');
+						img.src = imgurl;
+						li.appendChild(img);
+						imglist.appendChild(li);
+						
+					})
+				}
+			}
+			
+		</script>
+	</body>
+</html>
