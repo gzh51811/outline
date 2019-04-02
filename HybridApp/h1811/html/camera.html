@@ -10,6 +10,7 @@
 			header{position:relative;padding:5px 0;}
 			header h1{font-size:20px;text-align: center;margin:0;}
 			header .mui-icon{position: absolute;top:7px;left:0;font-size:20px;}
+			#videoPlayer{width:100%;}
 		</style>
 	</head>
 	<body>
@@ -18,19 +19,44 @@
 			<h1>摄像头相关</h1>
 		</header>
 		<main>
-			<button type="button" class="mui-btn mui-btn-royal mui-btn-outlined" id="btn">拍照</button> 
-			<div class="mui-content">
-			<div class="mui-row" id="imglist">
-			    <div class="mui-col-sm-3">
-			    </div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="btnCapture">拍照</li>
+				<li class="mui-table-view-cell" id="btnVideo">录像2</li>
+				<li class="mui-table-view-cell" id="btnQR">识别图片二维码</li>
+				<li class="mui-table-view-cell" id="btnScan">扫码</li>
+			</ul>
+			<div class="mui-slider">
+			  <div class="mui-slider-group">
+				<div class="mui-slider-item"><img src="../img/mv1.jpg" /></div>
+				<div class="mui-slider-item"><img src="../img/mv2.jpg" /></div>
+				<div class="mui-slider-item"><img src="../img/mv3.jpg" /></div>
+				<div class="mui-slider-item"><img src="../img/mv4.jpg" /></div>
+			  </div>
 			</div>
-			<button>录像</button>
+			<video id="videoPlayer" controls></video>
 		</main>
 		<script>
 			document.addEventListener( "plusready", plusReady,false);
 			
 			function plusReady(){
+				// 获取元素
+				let sliderGroup = document.querySelector('.mui-slider-group');
 				let btnBack = document.querySelector('#btnBack');
+				let btnCapture = document.querySelector('#btnCapture');
+				let btnVideo = document.querySelector('#btnVideo')
+				let videoPlayer = document.querySelector('#videoPlayer')
+				
+				let btnQR = document.querySelector('#btnQR')
+				let btnScan = document.querySelector('#btnScan')
+				
+				// 轮播图
+				var gallery = mui('.mui-slider');
+				gallery.slider({
+				  interval:3000//自动轮播周期，若为0则不自动播放，默认为0；
+				});
+				
+				
+				
 				let currentWV = plus.webview.currentWebview();
 				btnBack.onclick = ()=>{
 					
@@ -41,7 +67,7 @@
 				let cmr = plus.camera.getCamera(2);
 				console.log(cmr)
 				
-				btn.onclick = ()=>{
+				btnCapture.onclick = ()=>{
 					// 拍照
 					cmr.captureImage((path)=>{
 						//得到一个相对路径
@@ -52,13 +78,84 @@
 						console.log(path,imgurl)
 						
 						let li = document.createElement('div');
-						li.className = 'mui-col-sm-3'
+						li.className = 'mui-slider-item'
 						let img  = document.createElement('img');
 						img.src = imgurl;
 						li.appendChild(img);
-						imglist.appendChild(li);
+						sliderGroup.appendChild(li);
+						
+						// 存到相册
+						plus.gallery.save( path, ()=>{
+							plus.nativeUI.toast('保存成功');
+						});
 						
 					})
+				}
+			
+				// 录像
+				btnVideo.onclick = ()=>{
+					cmr.startVideoCapture((path)=>{
+						
+						
+						console.log(path)
+						
+						// 显示到页面
+						let videourl = plus.io.convertLocalFileSystemURL( path );
+						plus.nativeUI.alert(videourl, ()=>{
+							
+						}, '查看地址', '确定');
+						videoPlayer.src = videourl;
+					})
+				}
+				
+				// 识别图片二维码
+				btnQR.onclick=()=>{
+					// 选取相册图片
+					plus.gallery.pick((path)=>{
+						plus.barcode.scan(path, (type, code, file)=>{
+							//成功
+							plus.nativeUI.alert(type+':'+code)
+						}, (err)=>{
+							// 失败
+							plus.nativeUI.alert(err.code)
+						}, [plus.barcode.QR])
+					});
+					
+				}
+				
+				// 扫码
+				btnScan.onclick= ()=>{
+					let barcode = plus.barcode.create('barcode', [0,1,2], {
+						top:'100px',
+						left:'0px',
+						width: '100%',
+						height: '500px',
+						position: 'static'
+					});
+					
+					barcode.onmarked = (type, result)=>{
+						// result:二维码/条形码的结果
+						var text = '未知: ';
+						switch(type){
+							case plus.barcode.QR:
+							text = 'QR: ';
+							break;
+							case plus.barcode.EAN13:
+							text = 'EAN13: ';
+							break;
+							case plus.barcode.EAN8:
+							text = 'EAN8: ';
+							break;
+						}
+						plus.webview.open( result, 'qfwx');
+						// plus.nativeUI.alert( text+result );
+					};
+					
+					// 调用此方法创建后并不会显示，需要调用Webview窗口的append方法将其添加到Webview窗口后才能显示
+					plus.webview.currentWebview().append(barcode);
+					
+					// 开始扫描
+					barcode.start();
 				}
 			}
 			
