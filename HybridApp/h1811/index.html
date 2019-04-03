@@ -36,10 +36,17 @@
 			<input type="search" id="keyword"/>
 		</li>
 		<li class="mui-table-view-cell mui-media" id="btnMap">
-			<span class="mui-media-object mui-pull-left mui-icon mui-icon-mic"></span>
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-map"></span>
 			<div class="mui-media-body">
 				地图Map
 				<p class='mui-ellipsis'>百度、高德、腾讯</p>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media" id="btnShare">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-pengyouquan"></span>
+			<div class="mui-media-body">
+				分享
+				<p class='mui-ellipsis'>微信、QQ、微博、朋友圈</p>
 			</div>
 		</li>
 	</ul>
@@ -50,6 +57,7 @@
 		let btnSpeech = document.querySelector('#btnSpeech');
 		let keyword = document.querySelector('#keyword');
 		let btnMap = document.querySelector('#btnMap');
+		let btnShare = document.querySelector('#btnShare');
 		
 		goCamera.onclick = ()=>{
 			// 创建webview
@@ -78,6 +86,59 @@
 			plus.webview.open('html/map.html', 'pageMap',{},'fade-in')
 		}
 		
+		
+		// 分享
+		btnShare.onclick = ()=>{
+			plus.share.getServices((services)=>{
+				console.log(services);
+				
+				let buttons = services.map(item=>{
+					return {
+						title:item.description
+					}
+				})
+				plus.nativeUI.actionSheet({
+					title:"分享到",
+					cancel:"取消",
+					buttons,
+				}, (e)=>{
+					let idx = e.index-1;
+					console.log('分享成功'+e.index);
+					let currentService = services[idx]
+					if(!currentService.authenticated){
+						currentService.authorize((service)=>{
+							console.log('services:',service)
+							
+							service.send({content:'时间过得真快，我们1811班又准备出去拿高薪了'})
+						});
+					}else{
+						
+						currentService.send({content:'时间过得真快，又准备出去拿高薪了'})
+					}
+				});
+			});
+			
+			
+
+// 			plus.gallery.pick((file)=>{console.log(file)
+// 				
+// 			})
+			
+// 			let cmr = plus.camera.getCamera();
+// 			
+// 			cmr.captureImage((path)=>{
+// 				// 系统分享
+// 				plus.share.sendWithSystem({
+// 					type:'image',
+// 					content:'混合开发-测试分享内容',
+// 					pictures:[path],
+// 					href:'http://www.dcloud.io/',
+// 				}, ()=>{
+// 					plus.nativeUI.toast('分享成功')
+// 				});
+// 			})
+			
+		}
 	</script>
 </body>
 </html>
