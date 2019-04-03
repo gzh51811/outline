@@ -25,11 +25,32 @@
 				<p class='mui-ellipsis'>拍照、录像、扫码等功能</p>
 			</div>
 		</li>
+		<li class="mui-table-view-cell mui-media" id="btnSpeech">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-mic"></span>
+			<div class="mui-media-body">
+				语音识别
+				<p class='mui-ellipsis'>识别中文、英文、粤语</p>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media">
+			<input type="search" id="keyword"/>
+		</li>
+		<li class="mui-table-view-cell mui-media" id="btnMap">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-mic"></span>
+			<div class="mui-media-body">
+				地图Map
+				<p class='mui-ellipsis'>百度、高德、腾讯</p>
+			</div>
+		</li>
 	</ul>
 	
 </div>
 	<script>
 		let goCamera = document.querySelector('#goCamera');
+		let btnSpeech = document.querySelector('#btnSpeech');
+		let keyword = document.querySelector('#keyword');
+		let btnMap = document.querySelector('#btnMap');
+		
 		goCamera.onclick = ()=>{
 			// 创建webview
 			// let wvCamera = plus.webview.create( 'html/camera.html', 'pageCamera');
@@ -39,14 +60,23 @@
 			plus.webview.open('html/camera.html', 'pageCamera',{},'fade-in')
 		}
 		
-		let imglist = document.getElementById('imglist');
-		let btn = document.getElementById('btn')
-		// 扩展API加载完毕后调用onPlusReady回调函数 
-		document.addEventListener( "plusready", ()=>{
-			// 通过camera接口下的getCamera得到摄像头对象
-			
-			
-		}, false );
+		// 语音识别
+		btnSpeech.onclick = ()=>{
+			plus.speech.startRecognize({
+				engine:'iFly',
+				lang:'zh-henanese',
+				timeout:'3000',
+				nbest:3
+			},(txt)=>{
+				// plus.nativeUI.alert(txt);
+				keyword.value = txt;
+			})
+		}
+		
+		// 地图
+		btnMap.onclick = ()=>{
+			plus.webview.open('html/map.html', 'pageMap',{},'fade-in')
+		}
 		
 	</script>
 </body>
