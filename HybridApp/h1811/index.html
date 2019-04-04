@@ -49,6 +49,28 @@
 				<p class='mui-ellipsis'>微信、QQ、微博、朋友圈</p>
 			</div>
 		</li>
+		<li class="mui-table-view-cell mui-media" id="btnfingerprint">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-pengyouquan"></span>
+			<div class="mui-media-body">
+				指纹
+				<p class='mui-ellipsis'>用于支付、解锁等</p>
+			</div>
+		</li>
+		<li class="mui-table-view-cell mui-media" id="btnLogin">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-pengyouquan"></span>
+			<div class="mui-media-body">
+				第三方授权登录
+				<p class='mui-ellipsis'>QQ、微信等</p>
+			</div>
+		</li>
+		
+		<li class="mui-table-view-cell mui-media" id="btnPayment">
+			<span class="mui-media-object mui-pull-left mui-icon mui-icon-pengyouquan"></span>
+			<div class="mui-media-body">
+				支付
+				<p class='mui-ellipsis'>微信、支付宝</p>
+			</div>
+		</li>
 	</ul>
 	
 </div>
@@ -58,6 +80,9 @@
 		let keyword = document.querySelector('#keyword');
 		let btnMap = document.querySelector('#btnMap');
 		let btnShare = document.querySelector('#btnShare');
+		let btnfingerprint = document.querySelector('#btnfingerprint');
+		let btnLogin = document.querySelector('#btnLogin');
+		let btnPayment = document.querySelector('#btnPayment');
 		
 		goCamera.onclick = ()=>{
 			// 创建webview
@@ -117,27 +142,35 @@
 					}
 				});
 			});
+		}
+		
+		// 指纹
+		btnfingerprint.onclick = ()=>{
+			let support = plus.fingerprint.isSupport();
 			
-			
-
-// 			plus.gallery.pick((file)=>{console.log(file)
-// 				
-// 			})
-			
-// 			let cmr = plus.camera.getCamera();
-// 			
-// 			cmr.captureImage((path)=>{
-// 				// 系统分享
-// 				plus.share.sendWithSystem({
-// 					type:'image',
-// 					content:'混合开发-测试分享内容',
-// 					pictures:[path],
-// 					href:'http://www.dcloud.io/',
-// 				}, ()=>{
-// 					plus.nativeUI.toast('分享成功')
-// 				});
-// 			})
-			
+			if(support){
+				if(plus.fingerprint.isEnrolledFingerprints()){
+					plus.fingerprint.authenticate(()=>{
+						plus.nativeUI.alert('支付成功')
+					}, ()=>{
+						plus.nativeUI.alert('你的手指太烂了，请更换手指')
+					})
+				}else{
+					plus.nativeUI.alert('请先录入指纹')
+				}
+			}else{
+				plus.nativeUI.alert('你的手机太烂，赶紧更换')
+			}
+		}
+		
+		// 第三方授权登录
+		btnLogin.onclick = ()=>{
+			plus.webview.open('html/login.html', 'pageLogin',{},'fade-in')
+		}
+		
+		// 支付
+		btnPayment.onclick = ()=>{
+			plus.webview.open('html/payment.html', 'pagePayment',{},'fade-in')
 		}
 	</script>
 </body>

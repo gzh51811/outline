@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<h1>第三方授权2</h1>
+			<ul class="mui-table-view info">
+			
+			</ul>
+			<button type="button" class="mui-btn mui-btn-danger mui-btn-outlined btnLogout" style="box-sizing:border-box;display:block;margin:10px;width:100%">注销登录1</button>
+		</div>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+		
+			mui.plusReady(()=>{
+				let info = document.querySelector('.info');
+				let btnLogout = document.querySelector('.btnLogout');
+				let servicesList = {}
+				
+				//生成html结构
+				plus.oauth.getServices((services)=>{
+					console.log(services);//微信/qq/weibo
+					info.innerHTML = services.map(item=>{
+						//把所有的授权对象写入servicesList
+						servicesList[item.id] = item;
+						return '<li class="mui-table-view-cell mui-media" data-id="'+item.id+'">'+item.description+'</li>';
+					}).join('\n');
+				});
+
+				// 点击进行授权
+				info.onclick = (e)=>{
+					if(e.target.tagName === 'LI'){
+						// 获取授权列表id
+						let id = e.target.dataset.id;
+						
+						// 通过id获取授权对象
+						let auth = servicesList[id];
+						
+						if(auth){
+							var w;
+							if(plus.os.name=="Android"){
+								// 显示loading效果
+								w=plus.nativeUI.showWaiting();
+							}
+// 							document.addEventListener("pause",function(){
+// 								setTimeout(function(){
+// 									w&&w.close();w=null;
+// 								},2000);
+// 							}, false );
+							auth.login(function(){
+								w.close();
+								
+								//登录授权成功后获取用户信息
+								userinfo(auth);
+							},function(e){
+								w.close();
+								plus.nativeUI.alert("详情错误信息请参考授权登录(OAuth)规范文档：http://www.html5plus.org/#specification#/specification/OAuth.html",null,"登录失败["+e.code+"]："+e.message);
+							});
+						}else{
+							plus.nativeUI.alert("无效的登录认证通道！",null,"登录");
+						}
+					}
+				}
+				
+				btnLogout.onclick = ()=>{
+					for(let id in servicesList){
+						let auth = servicesList[id]
+						auth.logout(function(){
+							plus.nativeUI.alert("注销\""+auth.description+"\"成功");
+						},function(e){
+							plus.nativeUI.alert("注销\""+auth.description+"\"失败："+e.message);
+						});
+					}
+				}
+				
+				// 获取用户信息
+				function userinfo(a){
+					a.getUserInfo(function(){
+						var nickname=a.userInfo.nickname||a.userInfo.name||a.userInfo.miliaoNick;
+						plus.nativeUI.alert("欢迎“"+nickname+"”登录！");
+					},function(e){
+						plus.nativeUI.alert("获取用户信息失败！",null,"登录");
+					});
+				}
+			})
+		</script>
+	</body>
+
+</html>

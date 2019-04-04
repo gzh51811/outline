@@ -11,3 +11,5 @@ node_modules/
 *.avi
 *.rar
 *.zip
+*.ipa
+*.apk

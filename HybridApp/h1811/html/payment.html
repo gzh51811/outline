@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<style>
+			.goods img{width:100%;}
+			.price span{margin:0 5px;color:#f00;}
+			.price span::before{content:'￥';}
+			.goods-info{padding:10px;}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="goods">
+				<img src="../img/mv1.jpg"
+			</div>
+			<div class="goods-info">
+				<h1>南非美女陪你过清明</h1>
+				<p class="price">
+					<del>1999.00</del>
+					<span>998.00</span>
+				</p>
+				<div class="pay">
+					
+				</div>
+			</div>
+			
+		</div>
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			mui.plusReady(()=>{
+				let pay = document.querySelector('.pay');
+				
+				plus.payment.getChannels((channels)=>{
+					console.log(channels);
+					pay.innerHTML = channels.map(item=>{
+						return `<button class="mui-btn">${item.description}</button>`
+					}).join('')
+				});
+			})
+		</script>
+	</body>
+
+</html>

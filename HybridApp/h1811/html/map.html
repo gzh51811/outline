@@ -4,16 +4,24 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>地图</title>
+		<link href="../css/mui.min.css" rel="stylesheet"/>
 		<style>	
 			#bdmap{
 				height:300px;width:100%
 			}
 		</style>
+		<script src="../js/mui.js"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=x4RLsqK9mFnB0Vf3QiNLvSMAVmuhWqPe"></script>
 	</head>
 	<body>
 		<div id="bdmap"></div>
 		<script>
+// 			mui.init({
+// 				keyEventBind: {
+// 						backbutton: false,  //Boolean(默认true)关闭back按键监听
+// 						menubutton: false   //Boolean(默认true)关闭menu按键监听
+// 				}
+// 			});
 			document.addEventListener( "plusready", plusReady,false);
 			
 			function plusReady(){
