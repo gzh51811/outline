@@ -1,3 +1,5 @@
+<import src="/template/template.wxml"/>
+
 <!--index.wxml-->
 <view class="container">
   <view class="userinfo">
@@ -8,6 +10,15 @@
     </block>
   </view>
   <view class="usermotto">
-    <text class="user-motto" bindtap="bindViewTap">{{motto}}</text>
+    <text class="user-motto" bindtap="bindViewTap">{{motto}} {{username}}</text>
+  </view>
+  <template is="list"/>
+  <view wx:for="{{array}}" wx:key="*this" wx:for-item="goods" wx:for-index="idx">
+  
+    <view wx:for="{{item.list}}">
+      {{idx +'-'+index}}: {{item.message}}
+    </view>
+    <text></text>
+    
   </view>
 </view>

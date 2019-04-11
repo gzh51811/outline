@@ -1,0 +1,10 @@
+<template name="list">
+<view>list</view>
+</template>
+
+<template name="goods">
+<view>goods</view>
+</template>
+
+<view>
+</view>

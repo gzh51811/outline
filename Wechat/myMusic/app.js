@@ -34,6 +34,8 @@ App({
     })
   },
   globalData: {
+    username:'laoxie',
     userInfo: null
-  }
+  },
+  className:'h5-1811'
 })
