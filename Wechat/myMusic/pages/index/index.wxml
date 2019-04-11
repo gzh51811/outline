@@ -1,24 +1,20 @@
-<import src="/template/template.wxml"/>
-
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<swiper 
+indicator-dots="{{true}}"
+autoplay="{{true}}">
+  <navigator wx:for="{{recommends}}" wx:key="song_id" url="/pages/player/player?id={{item.song_id}}">
+    <swiper-item>
+      <image src="{{item.pic_s500}}" class="slide-image"/>
+    </swiper-item>
+  </navigator>
+</swiper>
+<!-- 搜索 -->
+<view class="weui-search-bar__form" bindtap="gotoSearch">
+  <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{keyword}}" />
   </view>
-  <view class="usermotto">
-    <text class="user-motto" bindtap="bindViewTap">{{motto}} {{username}}</text>
-  </view>
-  <template is="list"/>
-  <view wx:for="{{array}}" wx:key="*this" wx:for-item="goods" wx:for-index="idx">
-  
-    <view wx:for="{{item.list}}">
-      {{idx +'-'+index}}: {{item.message}}
-    </view>
-    <text></text>
-    
-  </view>
+  <label class="weui-search-bar__label">
+      <icon class="weui-icon-search" type="search" size="14"></icon>
+      <view class="weui-search-bar__text">{{keyword}}</view>
+  </label>
 </view>
