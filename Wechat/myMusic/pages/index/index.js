@@ -155,4 +155,12 @@ Page({
       });
     });
   },
+
+  //跳转到列表
+  gotoList(e){
+    let {type} = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: '/pages/list/list?type=' + type,
+    })
+  }
 })

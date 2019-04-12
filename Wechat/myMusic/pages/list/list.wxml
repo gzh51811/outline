@@ -1,2 +1,9 @@
-<!--pages/list/list.wxml-->
-<text>pages/list/list.wxml</text>
+<import src="/template/template.wxml"/>
+
+<scroll-view>
+  <template is="panel" data="{{datalist}}"/>
+  <view class="weui-loadmore" hidden='{{!loading}}'>
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+</scroll-view>
