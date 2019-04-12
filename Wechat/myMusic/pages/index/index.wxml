@@ -1,3 +1,6 @@
+<!-- 引入模板 -->
+<import src="/template/template.wxml"/>
+
 <swiper 
 indicator-dots="{{true}}"
 autoplay="{{true}}">
@@ -7,6 +10,7 @@ autoplay="{{true}}">
     </swiper-item>
   </navigator>
 </swiper>
+
 <!-- 搜索 -->
 <view class="weui-search-bar__form" bindtap="gotoSearch">
   <view class="weui-search-bar__box">
@@ -18,3 +22,23 @@ autoplay="{{true}}">
       <view class="weui-search-bar__text">{{keyword}}</view>
   </label>
 </view>
+
+<!-- tab标签 -->
+<view class="weui-tab">
+  <view class="weui-navbar">
+      <block wx:for="{{tabs}}" wx:key="type">
+          <view id="{{index}}" data-idx="{{index}}" data-type="{{item.type}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bind:tap="handlerTabChange">
+              <view class="weui-navbar__title">{{item.nickname}}</view>
+          </view>
+      </block>
+      <view class="weui-navbar__slider" style="width: {{tabWidth}}px; transform: translateX({{sliderOffset}}px); "></view>
+  </view>
+  <view class="weui-tab__panel">
+      <view wx:for="{{tabs}}" wx:key="type" class="weui-tab__content" hidden="{{activeIndex != index}}">
+        <template is="list" data="{{datalist:tabData[item.type]}}"/>
+        <template is="more" data="{{type:item.type}}"/>
+      </view>
+  </view>
+</view>
+<template is="panel" data="{{title:'热门歌曲',datalist:list_hot,type:2}}"/>
+<template is="panel" data="{{title:'最新歌曲',datalist:list_new,type:1}}"/>

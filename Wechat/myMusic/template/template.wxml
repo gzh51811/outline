@@ -1,10 +1,30 @@
 <template name="list">
-<view>list</view>
+  <navigator wx:for="{{datalist}}" wx:key="song_id" url="/pages/player/player?id={{item.song_id}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+      <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+          <image class="weui-media-box__thumb" src="{{item.pic_small}}" />
+      </view>
+      <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+          <view class="weui-media-box__title">{{item.title}}</view>
+          <view class="weui-media-box__desc">歌手：{{item.author}}，人气：{{item.hot}}</view>
+      </view>
+  </navigator>
 </template>
 
-<template name="goods">
-<view>goods</view>
+<template name="more">
+  <view class="weui-cell weui-cell_access weui-cell_link" data-type="{{type}}" bindtap="gotoList">
+    <view class="weui-cell__bd">查看更多</view>
+    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+  </view>
 </template>
 
-<view>
-</view>
+<template name="panel">
+  <view class="weui-panel weui-panel_access">
+    <view class="weui-panel__hd" wx:if="{{title}}" data-type="{{type}}" bindtap="gotoList">{{title}}</view>
+    <view class="weui-panel__bd">
+        <template is="list" data="{{datalist}}"/>
+    </view>
+    <view class="weui-panel__ft" wx:if="{{more}}">
+        <template is="more" data="{{type}}"/>
+    </view>
+  </view>
+</template>
