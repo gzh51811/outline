@@ -1,2 +1,26 @@
-<!--pages/player/player.wxml-->
-<text>pages/player/player.wxml</text>
+<import src="/template/template.wxml"/>
+
+<view class='details'>
+  <view class="player" bindtap='handlePlay'>
+    <image src='{{data.pic_premium}}'/>
+    <view class="icon" style='background-image:url("{{paused?icons.play:icons.stop}}")'></view>
+  </view>
+  <!-- <audio poster="{{data.pic_big}}" name="{{data.title}}" author="{{data.author}}" src="{{song.file_link}}" id="myAudio" controls></audio> -->
+  <view class="weui-panel">
+    <view class="weui-panel__hd">歌曲信息</view>
+    <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">{{data.title}}</view>
+            <view class="weui-media-box__desc">{{data.si_proxycompany}}</view>
+            <view class="weui-media-box__info">
+                <view class="weui-media-box__info__meta">歌手：{{data.author}}</view>
+                <view class="weui-media-box__info__meta">时间：</view>
+                <view class="weui-media-box__info__meta weui-media-box__info__meta_extra">其它信息</view>
+            </view>
+        </view>
+    </view>
+  </view>
+  <button class="weui-btn" type="primary" plain="true" bindtap='handleDownload'>歌词下载</button>
+
+  <template is="panel" data="{{title:data.author+'相关歌曲',datalist:author_songlist}}"/>
+</view>

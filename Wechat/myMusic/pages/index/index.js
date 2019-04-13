@@ -96,6 +96,16 @@ Page({
     });
   },
 
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+    return {
+      title:'千锋好声音',
+      path:'pages/index/index'
+    }
+  },
+
   //ajax请求封装
   getData({
     url ='http://tingapi.ting.baidu.com/v1/restserver/ting',
