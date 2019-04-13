@@ -3,7 +3,7 @@
 <view class='details'>
   <view class="player" bindtap='handlePlay'>
     <image src='{{data.pic_premium}}'/>
-    <view class="icon" style='background-image:url("{{paused?icons.play:icons.stop}}")'></view>
+    <view class="icon" style='background-image:url("{{playIcon}}")'></view>
   </view>
   <!-- <audio poster="{{data.pic_big}}" name="{{data.title}}" author="{{data.author}}" src="{{song.file_link}}" id="myAudio" controls></audio> -->
   <view class="weui-panel">

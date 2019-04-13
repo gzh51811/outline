@@ -1,4 +1,25 @@
 // pages/player/player.js
+// import octicons from '../../node_modules/octicons';
+/*
+  使用npm模块步骤：
+  1.勾选npm选项
+  2.安装npm模块
+  3.工具->构建npm
+  4.require引入模块
+*/
+let octicons = require('octicons');
+console.log(octicons);
+console.log(octicons.play.toSVG({width:20}))
+
+// 微信小程序模块化与引入
+// require()
+// import
+// PS：引入只能使用相对路径
+let app = getApp();
+let common = require('../../common/common.js');
+import {svg2base64 as com} from '../../common/common.js';
+console.log(common, com)
+
 Page({
 
   /**
@@ -8,7 +29,9 @@ Page({
     id: null,
     data: {},
     player: null,
-    author_songlist:[]
+    author_songlist:[],
+    status:'播放',
+    playIcon: app.svg2base64(octicons.play.toSVG({ width: 20 })),
   },
 
   /**
@@ -144,29 +167,39 @@ Page({
       player = wx.createInnerAudioContext();
       //播放歌曲
       player.src = data.show_link;
+      player.autoplay = true;
 
       // 事件
       player.onPlay(() => {
         console.log('播放')
+        this.setData({
+          status:'暂停',
+          playIcon: app.svg2base64(octicons['primitive-square'].toSVG({ width: 20 }))
+        })
       })
 
       player.onPause(() => {
         console.log('暂停')
-
+        this.setData({
+          status: '播放',
+          playIcon: app.svg2base64(octicons['play'].toSVG({ width: 20 }))
+        })
       });
 
-      this.setData({
-        player
-      })
+      
     }
 
 
-
+    console.log(player.paused)
     if (player.paused) {
       player.play();
     } else {
       player.pause();
     }
+
+    this.setData({
+      player
+    })
 
   },
   handleDownload() {

@@ -59,5 +59,13 @@ App({
       title: '摇滚重金属'
     }]
   },
- 
+
+  // svg 转 base64
+  svg2base64(svgStr) {
+    return svgStr
+      .replace(/<svg/gi, "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'")
+      .replace(/</g, '%3C')
+      .replace(/>/g, '%3E')
+      .replace(/"/g, "'");
+  },
 })

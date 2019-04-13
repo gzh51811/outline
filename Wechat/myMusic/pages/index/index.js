@@ -3,6 +3,8 @@
 const app = getApp();
 console.log(app)
 
+
+
 Page({
   data: {
     list_hot: [],

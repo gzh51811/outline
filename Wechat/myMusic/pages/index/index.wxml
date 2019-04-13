@@ -1,6 +1,18 @@
 <!-- 引入模板 -->
 <import src="/template/template.wxml"/>
 
+<!-- 引入wxs -->
+<wxs module="tools" src="../../common/tools.wxs"/>
+<!-- <wxs module="ss">
+    // 引入其他wxs模块
+    var tools = require('../../common/tools.wxs');
+
+    var myname = 'jingjing';
+
+    module.exports = {
+      myname:myname
+    }
+</wxs> -->
 <swiper 
 indicator-dots="{{true}}"
 autoplay="{{true}}">
